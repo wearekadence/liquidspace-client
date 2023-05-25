@@ -121,4 +121,4 @@ jobs:
 
       - name: PHP Unit Tests
         id: php-unit-tests
-        run: composer test
+        run: composer phpunit
