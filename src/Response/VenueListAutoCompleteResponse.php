@@ -1,8 +1,8 @@
 <?php
 
-namespace LiquidSpaceClient\Response;
+namespace LiquidSpace\Response;
 
-use LiquidSpaceClient\Entity\Venue\AutocompleteVenue;
+use LiquidSpace\Entity\Venue\AutocompleteVenue;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class VenueListAutoCompleteResponse

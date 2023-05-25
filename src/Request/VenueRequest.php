@@ -1,8 +1,8 @@
 <?php
 
-namespace LiquidSpaceClient\Request;
+namespace LiquidSpace\Request;
 
-use LiquidSpaceClient\Response\VenueResponse;
+use LiquidSpace\Response\VenueResponse;
 
 class VenueRequest implements RequestInterface
 {

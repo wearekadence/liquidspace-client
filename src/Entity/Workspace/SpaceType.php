@@ -1,6 +1,6 @@
 <?php
 
-namespace LiquidSpaceClient\Entity\Workspace;
+namespace LiquidSpace\Entity\Workspace;
 
 enum SpaceType: int
 {

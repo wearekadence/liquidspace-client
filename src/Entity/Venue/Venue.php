@@ -1,8 +1,8 @@
 <?php
 
-namespace LiquidSpaceClient\Entity\Venue;
+namespace LiquidSpace\Entity\Venue;
 
-use LiquidSpaceClient\Entity\Workspace\Workspace;
+use LiquidSpace\Entity\Workspace\Workspace;
 
 class Venue
 {

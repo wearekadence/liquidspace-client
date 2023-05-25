@@ -1,11 +1,11 @@
 <?php
 
-namespace LiquidSpaceClient\Tests\Venue;
+namespace LiquidSpace\Tests\Venue;
 
-use LiquidSpaceClient\LiquidSpaceClient;
+use LiquidSpace\Client;
 use PHPUnit\Framework\TestCase;
-use LiquidSpaceClient\Request\VenueListAutoCompleteRequest;
-use LiquidSpaceClient\Response\VenueListAutoCompleteResponse;
+use LiquidSpace\Request\VenueListAutoCompleteRequest;
+use LiquidSpace\Response\VenueListAutoCompleteResponse;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
 
@@ -29,7 +29,7 @@ class VenueListAutoCompleteTest extends TestCase
             'response_headers' => ['content-type' => 'application/json; charset=utf-8']
         ]);
 
-        $client = new LiquidSpaceClient(new MockHttpClient([$mockResponse]), 'test');
+        $client = new Client(new MockHttpClient([$mockResponse]), 'test');
 
         $request = new VenueListAutoCompleteRequest('search');
 

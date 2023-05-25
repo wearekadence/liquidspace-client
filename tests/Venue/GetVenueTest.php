@@ -1,11 +1,11 @@
 <?php
 
-namespace LiquidSpaceClient\Tests\Venue;
+namespace LiquidSpace\Tests\Venue;
 
-use LiquidSpaceClient\LiquidSpaceClient;
-use LiquidSpaceClient\Entity\Workspace\SpaceType;
-use LiquidSpaceClient\Request\VenueRequest;
-use LiquidSpaceClient\Response\VenueResponse;
+use LiquidSpace\Client;
+use LiquidSpace\Entity\Workspace\SpaceType;
+use LiquidSpace\Request\VenueRequest;
+use LiquidSpace\Response\VenueResponse;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
@@ -57,7 +57,7 @@ class GetVenueTest extends TestCase
             'response_headers' => ['content-type' => 'application/json; charset=utf-8']
         ]);
 
-        $client = new LiquidSpaceClient(new MockHttpClient([$mockResponse]), 'test');
+        $client = new Client(new MockHttpClient([$mockResponse]), 'test');
 
         $request = new VenueRequest('04637609-c1d5-4848-b34f-8e1ef83de14f');
 
@@ -97,7 +97,7 @@ class GetVenueTest extends TestCase
             'response_headers' => ['content-type' => 'application/json; charset=utf-8']
         ]);
 
-        $client = new LiquidSpaceClient(new MockHttpClient([$mockResponse]), 'test');
+        $client = new Client(new MockHttpClient([$mockResponse]), 'test');
 
         $request = new VenueRequest('04637609-c1d5-4848-b34f-8e1ef83de14f');
 

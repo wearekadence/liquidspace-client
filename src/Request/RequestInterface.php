@@ -1,6 +1,6 @@
 <?php
 
-namespace LiquidSpaceClient\Request;
+namespace LiquidSpace\Request;
 
 interface RequestInterface
 {

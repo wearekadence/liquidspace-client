@@ -1,13 +1,13 @@
 <?php
 
-namespace LiquidSpaceClient;
+namespace LiquidSpace;
 
-use LiquidSpaceClient\Request\RequestInterface;
+use LiquidSpace\Request\RequestInterface;
 use Symfony\Component\HttpClient\Exception\ClientException;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class LiquidSpaceClient
+class Client
 {
     private const BASE_URI = 'https://ls-api-dev.azure-api.net';
 

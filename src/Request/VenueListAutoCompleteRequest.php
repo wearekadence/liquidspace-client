@@ -1,8 +1,8 @@
 <?php
 
-namespace LiquidSpaceClient\Request;
+namespace LiquidSpace\Request;
 
-use LiquidSpaceClient\Response\VenueListAutoCompleteResponse;
+use LiquidSpace\Response\VenueListAutoCompleteResponse;
 
 class VenueListAutoCompleteRequest implements RequestInterface
 {

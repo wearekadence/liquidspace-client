@@ -1,6 +1,6 @@
 <?php
 
-namespace LiquidSpaceClient\Entity\Venue;
+namespace LiquidSpace\Entity\Venue;
 
 class AutocompleteVenue
 {

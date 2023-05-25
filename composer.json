@@ -18,12 +18,12 @@
   },
   "autoload": {
     "psr-4": {
-      "LiquidSpaceClient\\": "src/"
+      "LiquidSpace\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "LiquidSpaceClient\\Tests\\": "tests/"
+      "LiquidSpace\\Tests\\": "tests/"
     }
   },
   "scripts": {

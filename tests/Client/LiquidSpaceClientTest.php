@@ -1,8 +1,8 @@
 <?php
 
-namespace LiquidSpaceClient\Tests\Client;
+namespace LiquidSpace\Tests\Client;
 
-use LiquidSpaceClient\LiquidSpaceClient;
+use LiquidSpace\Client;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -28,9 +28,9 @@ final class LiquidSpaceClientTest extends TestCase
         $this->createClient($mockHttpClient);
     }
 
-    private function createClient(?HttpClientInterface $httpClient = null): LiquidSpaceClient
+    private function createClient(?HttpClientInterface $httpClient = null): Client
     {
-        return new LiquidSpaceClient(
+        return new Client(
             $httpClient ?? new MockHttpClient(),
             'test'
         );
