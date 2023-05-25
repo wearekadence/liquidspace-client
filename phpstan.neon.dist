@@ -1,0 +1,10 @@
+parameters:
+    level: 8
+    paths:
+        - src
+    excludePaths:
+        - tests
+    checkGenericClassInNonGenericObjectType: false
+    checkMissingIterableValueType: false
+    tipsOfTheDay: false
+    treatPhpDocTypesAsCertain: false
