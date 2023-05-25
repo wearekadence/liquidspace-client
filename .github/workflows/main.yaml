@@ -1,4 +1,4 @@
-name: API CI
+name: LiquidSpace API Client
 
 on:
   push:
@@ -73,7 +73,6 @@ jobs:
     container:
       image: chargifi/php-dev-alpine:latest
       env:
-        APP_ENV: test
         COMPOSER_MEMORY_LIMIT: '-1'
     needs: build-php
     if: ${{ needs.build-php.outputs.should-skip != 'true' }}
@@ -101,6 +100,10 @@ jobs:
   test-php:
     name: Test PHP
     runs-on: ubuntu-latest
+    container:
+      image: chargifi/php-dev-alpine:latest
+      env:
+        COMPOSER_MEMORY_LIMIT: '-1'
     needs: build-php
     if: ${{ needs.build-php.outputs.should-skip != 'true' }}
     timeout-minutes: 10
@@ -118,4 +121,4 @@ jobs:
 
       - name: PHP Unit Tests
         id: php-unit-tests
-        run: php -d memory_limit=-1 ./vendor/bin/phpunit --testdox tests
+        run: composer test
