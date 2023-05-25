@@ -1,8 +1,8 @@
 <?php
 
-namespace Client\Request;
+namespace LiquidSpaceClient\Request;
 
-use Client\Response\VenueResponse;
+use LiquidSpaceClient\Response\VenueResponse;
 
 class VenueRequest implements RequestInterface
 {
@@ -11,7 +11,12 @@ class VenueRequest implements RequestInterface
     ) {
     }
 
-    public function getMethod(): HttpMethod
+    public static function getResponseClass(): string
+    {
+        return VenueResponse::class;
+    }
+
+    public static function getMethod(): HttpMethod
     {
         return HttpMethod::Get;
     }
@@ -24,10 +29,5 @@ class VenueRequest implements RequestInterface
     public function getOptions(): array
     {
         return [];
-    }
-
-    public function getResponseClass(): string
-    {
-        return VenueResponse::class;
     }
 }

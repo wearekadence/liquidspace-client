@@ -1,11 +1,11 @@
 <?php
 
-namespace Client\Tests\Venue;
+namespace LiquidSpaceClient\Tests\Venue;
 
-use Client\Entity\Workspace\SpaceType;
-use Client\LiquidSpaceClient;
-use Client\Request\VenueRequest;
-use Client\Response\VenueResponse;
+use LiquidSpaceClient\LiquidSpaceClient;
+use LiquidSpaceClient\Entity\Workspace\SpaceType;
+use LiquidSpaceClient\Request\VenueRequest;
+use LiquidSpaceClient\Response\VenueResponse;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
@@ -63,6 +63,7 @@ class GetVenueTest extends TestCase
 
         $actualResponse = $client->request($request, VenueResponse::class);
 
+        self::assertNotNull($actualResponse);
         self::assertSame('GET', $mockResponse->getRequestMethod());
         self::assertSame('https://ls-api-dev.azure-api.net/marketplace/api/venues/04637609-c1d5-4848-b34f-8e1ef83de14f', $mockResponse->getRequestUrl());
         self::assertEquals('04637609-c1d5-4848-b34f-8e1ef83de14f', $actualResponse->venue->id);
@@ -87,5 +88,23 @@ class GetVenueTest extends TestCase
         self::assertEquals('Meeting Space', $actualResponse->venue->workspaces[0]->spaceTypeFormatted);
         self::assertEquals(20, $actualResponse->venue->workspaces[0]->capacity);
         self::assertEquals('GBP £200/hour', $actualResponse->venue->workspaces[0]->pricesFormatted);
+    }
+
+    public function testGetVenueNotFound(): void
+    {
+        $mockResponse = new MockResponse('', [
+            'http_code' => 404,
+            'response_headers' => ['content-type' => 'application/json; charset=utf-8']
+        ]);
+
+        $client = new LiquidSpaceClient(new MockHttpClient([$mockResponse]), 'test');
+
+        $request = new VenueRequest('04637609-c1d5-4848-b34f-8e1ef83de14f');
+
+        $actualResponse = $client->request($request, VenueResponse::class);
+
+        self::assertSame('GET', $mockResponse->getRequestMethod());
+        self::assertSame('https://ls-api-dev.azure-api.net/marketplace/api/venues/04637609-c1d5-4848-b34f-8e1ef83de14f', $mockResponse->getRequestUrl());
+        self::assertNull($actualResponse);
     }
 }

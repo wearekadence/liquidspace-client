@@ -1,8 +1,8 @@
 <?php
 
-namespace Client\Request;
+namespace LiquidSpaceClient\Request;
 
-use Client\Response\VenueListAutoCompleteResponse;
+use LiquidSpaceClient\Response\VenueListAutoCompleteResponse;
 
 class VenueListAutoCompleteRequest implements RequestInterface
 {
@@ -11,7 +11,12 @@ class VenueListAutoCompleteRequest implements RequestInterface
     ) {
     }
 
-    public function getMethod(): HttpMethod
+    public static function getResponseClass(): string
+    {
+        return VenueListAutoCompleteResponse::class;
+    }
+
+    public static function getMethod(): HttpMethod
     {
         return HttpMethod::Get;
     }
@@ -28,10 +33,5 @@ class VenueListAutoCompleteRequest implements RequestInterface
                 'term' => $this->searchString,
             ],
         ];
-    }
-
-    public function getResponseClass(): string
-    {
-        return VenueListAutoCompleteResponse::class;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Client\Request;
+namespace LiquidSpaceClient\Request;
 
 enum HttpMethod: string
 {

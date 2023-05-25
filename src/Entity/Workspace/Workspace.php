@@ -1,6 +1,6 @@
 <?php
 
-namespace Client\Entity\Workspace;
+namespace LiquidSpaceClient\Entity\Workspace;
 
 class Workspace
 {

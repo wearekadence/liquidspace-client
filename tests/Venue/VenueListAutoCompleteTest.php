@@ -1,11 +1,11 @@
 <?php
 
-namespace Client\Tests\Venue;
+namespace LiquidSpaceClient\Tests\Venue;
 
-use Client\LiquidSpaceClient;
+use LiquidSpaceClient\LiquidSpaceClient;
 use PHPUnit\Framework\TestCase;
-use Client\Request\VenueListAutoCompleteRequest;
-use Client\Response\VenueListAutoCompleteResponse;
+use LiquidSpaceClient\Request\VenueListAutoCompleteRequest;
+use LiquidSpaceClient\Response\VenueListAutoCompleteResponse;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
 
@@ -35,6 +35,7 @@ class VenueListAutoCompleteTest extends TestCase
 
         $actualResponse = $client->request($request, VenueListAutoCompleteResponse::class);
 
+        self::assertNotNull($actualResponse);
         self::assertSame('GET', $mockResponse->getRequestMethod());
         self::assertSame('https://ls-api-dev.azure-api.net/marketplace/api/venues/search?term=search', $mockResponse->getRequestUrl());
         self::assertCount(2, $actualResponse->venues);

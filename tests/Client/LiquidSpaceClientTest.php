@@ -1,8 +1,8 @@
 <?php
 
-namespace Client\Tests\Client;
+namespace LiquidSpaceClient\Tests\Client;
 
-use Client\LiquidSpaceClient;
+use LiquidSpaceClient\LiquidSpaceClient;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;

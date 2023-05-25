@@ -1,8 +1,9 @@
 <?php
 
-namespace Client;
+namespace LiquidSpaceClient;
 
-use Client\Request\RequestInterface;
+use LiquidSpaceClient\Request\RequestInterface;
+use Symfony\Component\HttpClient\Exception\ClientException;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -28,12 +29,14 @@ class LiquidSpaceClient
 
     /**
      * @template T of object
+     *
      * @psalm-param class-string<T> $responseClass
-     * @return T
+     *
+     * @return T|null
      *
      * @throws TransportExceptionInterface
      */
-    public function request(RequestInterface $request, string $responseClass): object
+    public function request(RequestInterface $request, string $responseClass): ?object
     {
         $response = $this->httpClient->request(
             $request->getMethod()->value,
@@ -41,6 +44,14 @@ class LiquidSpaceClient
             $request->getOptions()
         );
 
-        return new $responseClass($response);
+        try {
+            return new $responseClass($response);
+        } catch (ClientException $e) {
+            if (404 === $e->getCode()) {
+                return null;
+            }
+
+            throw $e;
+        }
     }
 }

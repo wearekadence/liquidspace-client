@@ -1,10 +1,9 @@
 <?php
 
-namespace Client\Response;
+namespace LiquidSpaceClient\Response;
 
-use Client\Entity\Venue\AutocompleteVenue;
+use LiquidSpaceClient\Entity\Venue\AutocompleteVenue;
 use Symfony\Contracts\HttpClient\ResponseInterface;
-use function PHPUnit\Framework\isEmpty;
 
 class VenueListAutoCompleteResponse
 {

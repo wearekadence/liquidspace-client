@@ -1,9 +1,8 @@
 <?php
 
-namespace Client\Entity\Venue;
+namespace LiquidSpaceClient\Entity\Venue;
 
-use Client\Entity\Workspace\Workspace;
-use Symfony\Contracts\HttpClient\ResponseInterface;
+use LiquidSpaceClient\Entity\Workspace\Workspace;
 
 class Venue
 {
