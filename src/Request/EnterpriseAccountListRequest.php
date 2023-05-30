@@ -6,7 +6,6 @@ use LiquidSpace\Response\EnterpriseAccountListResponse;
 
 class EnterpriseAccountListRequest implements RequestInterface
 {
-
     public static function getResponseClass(): string
     {
         return EnterpriseAccountListResponse::class;

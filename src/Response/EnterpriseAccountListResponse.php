@@ -9,13 +9,11 @@ class EnterpriseAccountListResponse
     /** @var AccountList[] */
     public readonly array $accounts;
 
-    public function __construct(array $response)
+    public function __construct(array $accountsData)
     {
-        $content = $response->toArray();
-
         $this->accounts = array_map(
-            fn(array $accountData) => new AccountList($accountData),
-            $content,
+            fn (array $accountData) => new AccountList($accountData),
+            $accountsData,
         );
     }
 }

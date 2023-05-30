@@ -9,7 +9,8 @@ class MemberRequest implements RequestInterface
     public function __construct(
         private readonly string $accountId,
         private readonly string $memberIdOrEmail,
-    ) {}
+    ) {
+    }
 
     public static function getResponseClass(): string
     {

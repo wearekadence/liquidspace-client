@@ -26,27 +26,27 @@ enum SpaceType: int
 
         $types = [];
         foreach ($digits as $index => $digit) {
-            if (0 === $index && $digit === '0' && 1 === count($digits)) {
+            if (0 === $index && '0' === $digit && 1 === count($digits)) {
                 $types[] = SpaceType::Any;
-            } elseif (0 === $index && $digit === '1') {
+            } elseif (0 === $index && '1' === $digit) {
                 $types[] = SpaceType::Meeting;
-            } elseif (1 === $index && $digit === '1') {
+            } elseif (1 === $index && '1' === $digit) {
                 $types[] = SpaceType::Office;
-            } elseif (2 === $index && $digit === '1') {
+            } elseif (2 === $index && '1' === $digit) {
                 $types[] = SpaceType::Desk;
-            } elseif (3 === $index && $digit === '1') {
+            } elseif (3 === $index && '1' === $digit) {
                 $types[] = SpaceType::Training;
-            } elseif (4 === $index && $digit === '1') {
+            } elseif (4 === $index && '1' === $digit) {
                 $types[] = SpaceType::TeamSpace;
-            } elseif (5 === $index && $digit === '1') {
+            } elseif (5 === $index && '1' === $digit) {
                 $types[] = SpaceType::PrivateOffice;
-            } elseif (6 === $index && $digit === '1') {
+            } elseif (6 === $index && '1' === $digit) {
                 $types[] = SpaceType::EventSpace;
-            } elseif (7 === $index && $digit === '1') {
+            } elseif (7 === $index && '1' === $digit) {
                 $types[] = SpaceType::OpenDesk;
-            } elseif (8 === $index && $digit === '1') {
+            } elseif (8 === $index && '1' === $digit) {
                 $types[] = SpaceType::DedicatedDesk;
-            } elseif (9 === $index && $digit === '1') {
+            } elseif (9 === $index && '1' === $digit) {
                 $types[] = SpaceType::Membership;
             }
         }

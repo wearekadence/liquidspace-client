@@ -15,12 +15,11 @@ class OnDemandLocation
     public readonly bool $isGeofenceEnabled;
     public readonly float $geofenceRadiusMiles;
 
-    public function __construct(array $onDemandLocationData) {
+    public function __construct(array $onDemandLocationData)
+    {
         $locationType = LocationType::tryFrom($onDemandLocationData['locationType']);
         if (null === $locationType) {
-            throw new \InvalidArgumentException(
-                'Invalid location type: '.$onDemandLocationData['locationType']
-            );
+            throw new \InvalidArgumentException('Invalid location type: '.$onDemandLocationData['locationType']);
         }
 
         $this->locationType = $locationType;

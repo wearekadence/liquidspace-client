@@ -84,7 +84,7 @@ class GetVenueTest extends TestCase
         self::assertEquals('3855d73e-230c-4129-9f62-607575ae94a4', $actualResponse->venue->workspaces[0]->id);
         self::assertEquals('Park Plaza County Hall 2', $actualResponse->venue->workspaces[0]->name);
         self::assertEquals('/uk/london/lambeth/london-venue-from-bila/park-plaza-county-hall-2', $actualResponse->venue->workspaces[0]->url);
-        self::assertEquals(SpaceType::Meeting, $actualResponse->venue->workspaces[0]->spaceType);
+        self::assertEquals([SpaceType::Meeting], $actualResponse->venue->workspaces[0]->spaceTypes);
         self::assertEquals('Meeting Space', $actualResponse->venue->workspaces[0]->spaceTypeFormatted);
         self::assertEquals(20, $actualResponse->venue->workspaces[0]->capacity);
         self::assertEquals('GBP £200/hour', $actualResponse->venue->workspaces[0]->pricesFormatted);

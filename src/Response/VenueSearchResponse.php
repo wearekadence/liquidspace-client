@@ -9,7 +9,7 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 class VenueSearchResponse
 {
     public readonly GeoLocation $geoLocation;
-    /** @var VenueSearchResult[]  */
+    /** @var VenueSearchResult[] */
     public readonly array $venues;
 
     public function __construct(ResponseInterface $response)
@@ -18,7 +18,7 @@ class VenueSearchResponse
 
         $this->geoLocation = new GeoLocation($searchData['geoLocation']);
         $this->venues = array_map(
-            fn(array $venueData) => new VenueSearchResult($venueData),
+            fn (array $venueData) => new VenueSearchResult($venueData),
             $searchData['venues'],
         );
     }

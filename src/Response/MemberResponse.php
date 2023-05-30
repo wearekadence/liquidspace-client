@@ -8,10 +8,8 @@ class MemberResponse
 {
     public readonly Member $member;
 
-    public function __construct(array $response)
+    public function __construct(array $memberData)
     {
-        $content = $response->toArray();
-
-        $this->member = new Member($content);
+        $this->member = new Member($memberData);
     }
 }

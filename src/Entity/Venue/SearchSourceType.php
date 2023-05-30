@@ -32,5 +32,4 @@ enum SearchSourceType: int
     case GuestOnboarding = 25;
     case EmbeddedConcierge = 26;
     case Membership = 27;
-
 }

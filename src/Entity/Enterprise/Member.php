@@ -26,19 +26,16 @@ class Member
     /** @var OnDemandLocation[] */
     public readonly array $locations;
 
-    public function __construct(array $memberData) {
+    public function __construct(array $memberData)
+    {
         $accountInvitationStatus = EnterpriseAccountInvitationStatus::tryFrom($memberData['accountInvitationStatus']);
         if (null === $accountInvitationStatus) {
-            throw new \InvalidArgumentException(
-                'Invalid location type: '.$memberData['accountInvitationStatus']
-            );
+            throw new \InvalidArgumentException('Invalid location type: '.$memberData['accountInvitationStatus']);
         }
 
         $groupInvitationStatus = MemberGroupInvitationStatus::tryFrom($memberData['groupInvitationStatus']);
         if (null === $groupInvitationStatus) {
-            throw new \InvalidArgumentException(
-                'Invalid location type: '.$memberData['groupInvitationStatus']
-            );
+            throw new \InvalidArgumentException('Invalid location type: '.$memberData['groupInvitationStatus']);
         }
 
         $this->id = $memberData['id'];
@@ -61,7 +58,7 @@ class Member
         $this->joinedDate = new \DateTimeImmutable($memberData['joinedDate']);
         $this->lastActivityDate = new \DateTimeImmutable($memberData['lastActivityDate']);
         $this->locations = array_map(
-            fn(array $onDemandLocationData) => new OnDemandLocation($onDemandLocationData),
+            fn (array $onDemandLocationData) => new OnDemandLocation($onDemandLocationData),
             $memberData['locations'],
         );
     }

@@ -2,7 +2,6 @@
 
 namespace LiquidSpace\Entity\Venue;
 
-use LiquidSpace\Entity\Workspace\Workspace;
 use LiquidSpace\Entity\Workspace\WorkspaceSearchResult;
 
 class VenueSearchResult
@@ -28,7 +27,7 @@ class VenueSearchResult
     public readonly bool $enterpriseHeadquarter;
     public readonly bool $enterprisePreferredLocation;
     public readonly bool $isExtendedNetwork;
-    /** @var Workspace[] */
+    /** @var WorkspaceSearchResult[] */
     public readonly array $workspaces;
 
     public function __construct(array $venueData)
