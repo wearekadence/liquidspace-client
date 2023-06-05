@@ -13,7 +13,7 @@ class VenueSearchResult
     public readonly string $address;
     public readonly float $minPrice;
     public readonly string $minPriceFormatted;
-    public readonly string $imageUrl;
+    public readonly ?string $imageUrl;
 
     /** @var string[] */
     public readonly array $imageUrls;

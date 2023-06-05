@@ -6,7 +6,7 @@ class WorkspaceSearchResult
 {
     public readonly string $id;
     public readonly string $name;
-    public readonly string $imageUrl;
+    public readonly ?string $imageUrl;
     public readonly string $url;
     public readonly float $price;
     public readonly string $priceAmount;
