@@ -10,7 +10,7 @@ class WorkspaceSearchResult
     public readonly string $url;
     public readonly float $price;
     public readonly string $priceAmount;
-    public readonly string $priceDescription;
+    public readonly ?string $priceDescription;
     /** @var SpaceType[] */
     public readonly array $spaceTypes;
     public readonly string $spaceTypeFormatted;
