@@ -5,9 +5,9 @@ namespace LiquidSpace\Request;
 use LiquidSpace\Entity\Venue\ReservationMethod;
 use LiquidSpace\Entity\Venue\SearchSourceType;
 use LiquidSpace\Entity\Workspace\SpaceType;
-use LiquidSpace\Response\VenueSearchResponse;
+use LiquidSpace\Response\SearchResponse;
 
-class VenueSearchRequest implements RequestInterface
+class SearchRequest implements RequestInterface
 {
     /**
      * @param SpaceType[] $spaceTypes
@@ -26,12 +26,13 @@ class VenueSearchRequest implements RequestInterface
         private readonly ?ReservationMethod $reservationMethod = null,
         private readonly ?int $workspaceCapacity = null,
         private readonly bool $isFullTextSearch = false,
+        private readonly ?int $reservationLengthMinutes = null,
     ) {
     }
 
     public static function getResponseClass(): string
     {
-        return VenueSearchResponse::class;
+        return SearchResponse::class;
     }
 
     public static function getMethod(): HttpMethod
@@ -41,7 +42,7 @@ class VenueSearchRequest implements RequestInterface
 
     public function getPath(): string
     {
-        return '/marketplace/api/search/venues';
+        return '/marketplace/api/search';
     }
 
     public function getOptions(): array
@@ -92,6 +93,10 @@ class VenueSearchRequest implements RequestInterface
 
         if (null !== $this->workspaceCapacity) {
             $providedOptions['workspaceCapacity'] = $this->workspaceCapacity;
+        }
+
+        if (null !== $this->reservationLengthMinutes) {
+            $providedOptions['reservationLengthMinutes'] = $this->reservationLengthMinutes;
         }
 
         $providedOptions['isFullTextSearch'] = $this->isFullTextSearch;

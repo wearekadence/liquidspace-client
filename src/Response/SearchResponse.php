@@ -6,7 +6,7 @@ use LiquidSpace\Entity\Venue\GeoLocation;
 use LiquidSpace\Entity\Venue\VenueSearchResult;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
-class VenueSearchResponse
+class SearchResponse
 {
     public readonly GeoLocation $geoLocation;
     /** @var VenueSearchResult[] */
