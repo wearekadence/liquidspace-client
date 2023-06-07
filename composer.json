@@ -11,8 +11,9 @@
     "friendsofphp/php-cs-fixer": "^3.17",
     "phpstan/phpstan": "^1.10",
     "phpunit/phpunit": "^10.1",
-    "symfony/debug-bundle": "6.2.*",
-    "symfony/stopwatch": "6.2.*"
+    "symfony/debug-bundle": "6.3.*",
+    "symfony/stopwatch": "6.3.*",
+    "symfony/cache": "6.3.*"
   },
   "config": {
     "optimize-autoloader": true

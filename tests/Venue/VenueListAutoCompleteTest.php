@@ -7,6 +7,7 @@ use PHPUnit\Framework\TestCase;
 use LiquidSpace\Request\VenueListAutoCompleteRequest;
 use LiquidSpace\Response\VenueListAutoCompleteResponse;
 use Symfony\Component\HttpClient\MockHttpClient;
+use Symfony\Component\HttpClient\Response\JsonMockResponse;
 use Symfony\Component\HttpClient\Response\MockResponse;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -25,8 +26,7 @@ class VenueListAutoCompleteTest extends TestCase
                 "value" => "LocationOutEshota",
             ],
         ];
-        $mockResponseJson = json_encode($expectedResponseData, JSON_THROW_ON_ERROR);
-        $mockResponse = new MockResponse($mockResponseJson, [
+        $mockResponse = new JsonMockResponse($expectedResponseData, [
             'http_code' => 200,
             'response_headers' => ['content-type' => 'application/json; charset=utf-8']
         ]);

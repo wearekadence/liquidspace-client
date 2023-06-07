@@ -3,6 +3,7 @@
 namespace LiquidSpace;
 
 use LiquidSpace\Entity\Impersonation;
+use LiquidSpace\Exception\MemberNotFound;
 use LiquidSpace\Exception\UnableToImpersonate;
 use LiquidSpace\Exception\UnauthorizedException;
 use LiquidSpace\Request\HttpMethod;
@@ -97,7 +98,7 @@ class Client
         return $impersonation;
     }
 
-    protected function getEnterpriseAuthorization(): string
+    public function getEnterpriseAuthorization(): string
     {
         return \base64_encode($this->clientId.':'.$this->clientSecret);
     }
@@ -105,7 +106,7 @@ class Client
     /**
      * @throws UnauthorizedException
      */
-    protected function tryImpersonation(string $accountId, string $memberEmail): Impersonation
+    public function tryImpersonation(string $accountId, string $memberEmail): Impersonation
     {
         // Step 1: Get Client Credentials Token (Enterprise Token)
         $enterpriseToken = $this->getEnterpriseToken();
@@ -119,9 +120,9 @@ class Client
         return new Impersonation($accountId, $memberId, $enterpriseToken, $memberToken);
     }
 
-    protected function getEnterpriseToken(): string
+    public function getEnterpriseToken(): string
     {
-        return $this->cache->get('liquidspace:enterprise:token:'.$this->clientId, function (ItemInterface $item) {
+        return $this->cache->get('liquidspace|enterprise|token|'.$this->clientId, function (ItemInterface $item) {
             $item->expiresAfter(3600 - 10);
 
             $clientCredentialsResponse = $this->httpClient->request(HttpMethod::Post->value, '/identity/connect/token', [
@@ -141,10 +142,10 @@ class Client
         });
     }
 
-    protected function getMemberId(string $accountId, string $memberEmail, string $enterpriseToken): string
+    public function getMemberId(string $accountId, string $memberEmail, string $enterpriseToken): string
     {
         return $this->cache->get(
-            'liquidspace:member:id:'.\base64_encode($memberEmail),
+            'liquidspace|member|id|'.\base64_encode($memberEmail),
             function () use ($accountId, $memberEmail, $enterpriseToken) {
                 $memberResponse = $this->httpClient->request(
                     HttpMethod::Get->value,
@@ -161,8 +162,10 @@ class Client
                     $memberData = $memberResponse->toArray();
                 } catch (ClientException $exception) {
                     if (Response::HTTP_UNAUTHORIZED === $exception->getCode()) {
-                        $this->cache->delete('liquidspace:enterprise:token:'.$this->clientId);
+                        $this->cache->delete('liquidspace|enterprise|token|'.$this->clientId);
                         throw new UnauthorizedException($exception->getMessage(), previous: $exception);
+                    } elseif (Response::HTTP_NOT_FOUND === $exception->getCode()) {
+                        throw new MemberNotFound('Member not found for: '.$memberEmail, previous: $exception);
                     } else {
                         throw $exception;
                     }
@@ -173,10 +176,10 @@ class Client
         );
     }
 
-    protected function getMemberToken(string $memberId, string $enterpriseToken): string
+    public function getMemberToken(string $memberId, string $enterpriseToken): string
     {
         return $this->cache->get(
-            'liquidspace:member:token:'.$memberId,
+            'liquidspace|member|token|'.$memberId,
             function (ItemInterface $item) use ($memberId, $enterpriseToken) {
                 $item->expiresAfter(3600 - 10);
 
@@ -199,7 +202,7 @@ class Client
                     $memberTokenData = $memberTokenResponse->toArray();
                 } catch (ClientException $exception) {
                     if (Response::HTTP_BAD_REQUEST === $exception->getCode()) {
-                        $this->cache->delete('liquidspace:enterprise:token:'.$this->clientId);
+                        $this->cache->delete('liquidspace|enterprise|token|'.$this->clientId);
                         throw new UnauthorizedException($exception->getMessage(), previous: $exception);
                     } else {
                         throw $exception;
