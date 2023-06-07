@@ -8,6 +8,8 @@ use LiquidSpace\Request\VenueListAutoCompleteRequest;
 use LiquidSpace\Response\VenueListAutoCompleteResponse;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class VenueListAutoCompleteTest extends TestCase
 {
@@ -29,7 +31,7 @@ class VenueListAutoCompleteTest extends TestCase
             'response_headers' => ['content-type' => 'application/json; charset=utf-8']
         ]);
 
-        $client = new Client(new MockHttpClient([$mockResponse]), 'test');
+        $client = $this->createClient(new MockHttpClient([$mockResponse]));
 
         $request = new VenueListAutoCompleteRequest('search');
 
@@ -41,5 +43,16 @@ class VenueListAutoCompleteTest extends TestCase
         self::assertCount(2, $actualResponse->venues);
         self::assertEquals('04637609-c1d5-4848-b34f-8e1ef83de14f', $actualResponse->venues[0]->id);
         self::assertEquals('London venue from bila', $actualResponse->venues[0]->name);
+    }
+
+    private function createClient(?HttpClientInterface $httpClient = null): Client
+    {
+        return new Client(
+            $httpClient ?? new MockHttpClient(),
+            $this->createMock(CacheInterface::class),
+            'subscriptionKey',
+            'clientId',
+            'clientSecret',
+        );
     }
 }

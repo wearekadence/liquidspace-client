@@ -5,6 +5,7 @@ namespace LiquidSpace\Tests\Client;
 use LiquidSpace\Client;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\MockHttpClient;
+use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 final class LiquidSpaceClientTest extends TestCase
@@ -18,7 +19,7 @@ final class LiquidSpaceClientTest extends TestCase
             ->method('withOptions')
             ->with([
                 'headers' => [
-                    'LS-Subscription-Key' => 'test',
+                    'LS-Subscription-Key' => 'subscriptionKey',
                 ],
                 'http_version' => '2.0',
                 'base_uri' => 'https://ls-api-dev.azure-api.net',
@@ -32,7 +33,10 @@ final class LiquidSpaceClientTest extends TestCase
     {
         return new Client(
             $httpClient ?? new MockHttpClient(),
-            'test'
+            $this->createMock(CacheInterface::class),
+            'subscriptionKey',
+            'clientId',
+            'clientSecret',
         );
     }
 }

@@ -9,6 +9,8 @@ use LiquidSpace\Response\VenueResponse;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class GetVenueTest extends TestCase
 {
@@ -57,7 +59,7 @@ class GetVenueTest extends TestCase
             'response_headers' => ['content-type' => 'application/json; charset=utf-8']
         ]);
 
-        $client = new Client(new MockHttpClient([$mockResponse]), 'test');
+        $client = $this->createClient(new MockHttpClient([$mockResponse]));
 
         $request = new VenueRequest('04637609-c1d5-4848-b34f-8e1ef83de14f');
 
@@ -97,7 +99,7 @@ class GetVenueTest extends TestCase
             'response_headers' => ['content-type' => 'application/json; charset=utf-8']
         ]);
 
-        $client = new Client(new MockHttpClient([$mockResponse]), 'test');
+        $client = $this->createClient(new MockHttpClient([$mockResponse]));
 
         $request = new VenueRequest('04637609-c1d5-4848-b34f-8e1ef83de14f');
 
@@ -106,5 +108,16 @@ class GetVenueTest extends TestCase
         self::assertSame('GET', $mockResponse->getRequestMethod());
         self::assertSame('https://ls-api-dev.azure-api.net/marketplace/api/venues/04637609-c1d5-4848-b34f-8e1ef83de14f', $mockResponse->getRequestUrl());
         self::assertNull($actualResponse);
+    }
+
+    private function createClient(?HttpClientInterface $httpClient = null): Client
+    {
+        return new Client(
+            $httpClient ?? new MockHttpClient(),
+            $this->createMock(CacheInterface::class),
+            'subscriptionKey',
+            'clientId',
+            'clientSecret',
+        );
     }
 }
