@@ -145,16 +145,24 @@ final class LiquidSpaceClientTest extends TestCase
         ?string $expectedExceptionClass,
         ?string $expectedId
     ): void {
-        if (null !== $expectedExceptionClass) {
-            // @phpstan-ignore-next-line
-            self::expectException($expectedExceptionClass);
-        }
+        $token = null;
 
-        $token = $this->createClient($client, $cache)->getMemberId(
-            'accountId',
-            'john.smith@example.com',
-            'enterpriseToken'
-        );
+        // Did not use expectException() because we need to test that the cache is emptied when the token is expired
+        try {
+            $token = $this->createClient($client, $cache)->getMemberId(
+                'accountId',
+                'john.smith@example.com',
+                'enterpriseToken'
+            );
+
+            if (null !== $expectedExceptionClass) {
+                self::fail('Expected exception, got none');
+            }
+        } catch (Throwable $e) {
+            if ($e::class !== $expectedExceptionClass) {
+                self::fail(sprintf('Expected exception %s, got %s', $expectedExceptionClass, $e::class));
+            }
+        }
 
         self::assertEquals($expectedId, $token);
         self::assertEquals($expectedId, $cache->get('liquidspace|member|id|am9obi5zbWl0aEBleGFtcGxlLmNvbQ==', fn () => null));
