@@ -47,6 +47,7 @@ final class LiquidSpaceClientTest extends TestCase
         $cache = new ArrayAdapter();
         $cache->get('liquidspace|enterprise|token|clientId', fn () => 'abcd');
 
+        // @phpstan-ignore-next-line
         $mockResponse = new JsonMockResponse([
             'access_token' => 'Y2xpZW50U2VjcmV0',
             'expires_in' => 3600,
@@ -92,6 +93,7 @@ final class LiquidSpaceClientTest extends TestCase
             // ...
         ]);
 
+        // @phpstan-ignore-next-line
         $notFoundResponse = new JsonMockResponse([
             'type' => 'https://tools.ietf.org/html/rfc7231#section-6.5.4',
             'title' => 'Not Found',
@@ -135,7 +137,7 @@ final class LiquidSpaceClientTest extends TestCase
 
     #[DataProvider('getMemberIdDataProvider')]
     /**
-     * @psalm-param class-string<Throwable> $expectedExceptionClass
+     * @psalm-param class-string<Throwable>|null $expectedExceptionClass
      */
     public function testGetMemberId(
         HttpClientInterface $client,
@@ -144,6 +146,7 @@ final class LiquidSpaceClientTest extends TestCase
         ?string $expectedId
     ): void {
         if (null !== $expectedExceptionClass) {
+            // @phpstan-ignore-next-line
             self::expectException($expectedExceptionClass);
         }
 

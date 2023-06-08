@@ -54,6 +54,8 @@ class GetVenueTest extends TestCase
             ],
             'venueMapImageUrl' => 'https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/-0.11602,51.5013,15,0.00,0.00/288x216@2x?access_token=pk.eyJ1IjoibGlxdWlkc3BhY2UiLCJhIjoiY2psODdsZm0yMGNyazNxbWt6Njc1OGR3eiJ9._OSdF9FwNYZ85hDNK96D7Q',
         ];
+
+        // @phpstan-ignore-next-line
         $mockResponse = new JsonMockResponse($expectedResponseData, [
             'http_code' => 200,
             'response_headers' => ['content-type' => 'application/json; charset=utf-8']
