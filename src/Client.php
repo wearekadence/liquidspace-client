@@ -115,7 +115,7 @@ class Client
         $memberId = $this->getMemberId($accountId, $memberEmail, $enterpriseToken);
 
         // Step 3: Get Access Token (Member Token)
-        $memberToken = $this->getMemberToken($memberEmail, $enterpriseToken);
+        $memberToken = $this->getMemberToken($memberId, $enterpriseToken);
 
         return new Impersonation($accountId, $memberId, $enterpriseToken, $memberToken);
     }
