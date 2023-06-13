@@ -118,6 +118,9 @@ class Client
 
         // Step 2: Register Member
         $this->registerMember($accountId, $email, $fullName, $enterpriseToken);
+
+        // Step 3: Lookup member ID from email address
+        return $this->getMemberId($accountId, $email, $enterpriseToken);
     }
 
     public function getEnterpriseAuthorization(): string
