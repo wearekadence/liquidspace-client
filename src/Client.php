@@ -75,6 +75,10 @@ class Client
         }
     }
 
+    /**
+     * @throws UnableToImpersonate
+     * @throws MemberNotFound
+     */
     public function impersonate(
         string $accountId,
         string $memberEmail,
@@ -98,6 +102,23 @@ class Client
         return $impersonation;
     }
 
+    /**
+     * @param string $accountId LiquidSpace account ID
+     * @param string $email Member's email address
+     * @param string $fullName Member's full name
+     * @return string Member ID
+     *
+     * @throws UnauthorizedException
+     */
+    public function createMember(string $accountId, string $email, string $fullName): string
+    {
+        // Step 1: Get Client Credentials Token (Enterprise Token)
+        $enterpriseToken = $this->getEnterpriseToken();
+
+        // Step 2: Register Member
+        $this->registerMember($accountId, $email, $fullName, $enterpriseToken);
+    }
+
     public function getEnterpriseAuthorization(): string
     {
         return \base64_encode($this->clientId.':'.$this->clientSecret);
@@ -105,6 +126,7 @@ class Client
 
     /**
      * @throws UnauthorizedException
+     * @throws MemberNotFound
      */
     public function tryImpersonation(string $accountId, string $memberEmail): Impersonation
     {
@@ -142,6 +164,9 @@ class Client
         });
     }
 
+    /**
+     * @throws MemberNotFound
+     */
     public function getMemberId(string $accountId, string $memberEmail, string $enterpriseToken): string
     {
         return $this->cache->get(
@@ -212,5 +237,38 @@ class Client
                 return $memberTokenData['access_token'];
             }
         );
+    }
+
+
+    public function registerMember(
+        string $accountId,
+        string $email,
+        string $fullName,
+        string $enterpriseToken
+    ): void {
+        $createResponse = $this->httpClient->request(
+            HttpMethod::Post->value,
+            '/enterpriseaccountmanagement/api/enterpriseaccounts/'.$accountId.'/members', [
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                    'Authorization' => 'Bearer '.$enterpriseToken,
+                ],
+                'body' => [
+                    'email' => $email,
+                    'fullName' => $fullName,
+                ],
+            ]
+        );
+
+        try {
+            $createData = $createResponse->toArray();
+        } catch (ClientException $exception) {
+            if (Response::HTTP_BAD_REQUEST === $exception->getCode()) {
+                $this->cache->delete('liquidspace|enterprise|token|'.$this->clientId);
+                throw new UnauthorizedException($exception->getMessage(), previous: $exception);
+            } else {
+                throw $exception;
+            }
+        }
     }
 }
