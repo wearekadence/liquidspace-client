@@ -104,8 +104,9 @@ class Client
 
     /**
      * @param string $accountId LiquidSpace account ID
-     * @param string $email Member's email address
-     * @param string $fullName Member's full name
+     * @param string $email     Member's email address
+     * @param string $fullName  Member's full name
+     *
      * @return string Member ID
      *
      * @throws UnauthorizedException
@@ -239,7 +240,6 @@ class Client
         );
     }
 
-
     public function registerMember(
         string $accountId,
         string $email,
@@ -248,7 +248,8 @@ class Client
     ): void {
         $createResponse = $this->httpClient->request(
             HttpMethod::Post->value,
-            '/enterpriseaccountmanagement/api/enterpriseaccounts/'.$accountId.'/members', [
+            '/enterpriseaccountmanagement/api/enterpriseaccounts/'.$accountId.'/members',
+            [
                 'headers' => [
                     'Content-Type' => 'application/json',
                     'Authorization' => 'Bearer '.$enterpriseToken,
