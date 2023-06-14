@@ -34,4 +34,9 @@ class VenueListAutoCompleteRequest implements RequestInterface
             ],
         ];
     }
+
+    public function requiresEnterpriseToken(): bool
+    {
+        return false;
+    }
 }

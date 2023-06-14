@@ -105,4 +105,9 @@ class SearchRequest implements RequestInterface
             'json' => $providedOptions,
         ];
     }
+
+    public function requiresEnterpriseToken(): bool
+    {
+        return false;
+    }
 }

@@ -32,4 +32,9 @@ class MemberRequest implements RequestInterface
     {
         return [];
     }
+
+    public function requiresEnterpriseToken(): bool
+    {
+        return false;
+    }
 }

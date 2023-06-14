@@ -11,4 +11,6 @@ interface RequestInterface
     public function getPath(): string;
 
     public function getOptions(): array;
+
+    public function requiresEnterpriseToken(): bool;
 }

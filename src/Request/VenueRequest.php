@@ -30,4 +30,9 @@ class VenueRequest implements RequestInterface
     {
         return [];
     }
+
+    public function requiresEnterpriseToken(): bool
+    {
+        return false;
+    }
 }

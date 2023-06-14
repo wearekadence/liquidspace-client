@@ -58,10 +58,16 @@ class Client
         string $responseClass,
         Impersonation $impersonation = null
     ): ?object {
+        $options = $request->getOptions();
+        if ($request->requiresEnterpriseToken()) {
+            $enterpriseToken = $this->getEnterpriseToken();
+            $options['headers']['Authorization'] = 'Bearer '.$enterpriseToken;
+        }
+
         $response = $this->httpClient->request(
             $request->getMethod()->value,
             $request->getPath(),
-            $request->getOptions()
+            $options
         );
 
         try {

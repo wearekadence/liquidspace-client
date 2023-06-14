@@ -30,4 +30,9 @@ class EnterpriseAccountListMembersRequest implements RequestInterface
     {
         return [];
     }
+
+    public function requiresEnterpriseToken(): bool
+    {
+        return true;
+    }
 }
