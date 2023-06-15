@@ -11,13 +11,20 @@ class Venue
     public readonly float $latitude;
     public readonly float $longitude;
     public readonly string $address;
+    public readonly string $addressLine1;
+    public readonly string $addressLine2;
+    public readonly string $city;
+    public readonly ?string $county;
+    public readonly ?string $postalCode;
+    public readonly string $countryCode;
+    public readonly string $timeZoneId;
     public readonly ?string $description;
     /** @var string[] */
     public readonly array $imageUrls;
     public readonly string $url;
     public readonly float $averageRating;
     public readonly int $ratingCount;
-    public readonly bool $hasHealthAndSafetyPolicy;
+    public readonly ?string $healthAndSafetyPolicy;
     public readonly bool $hasLiquidSpacePro;
     public readonly string $mapImageUrl;
     /** @var Workspace[] */
@@ -30,17 +37,24 @@ class Venue
         $this->latitude = $venueData['latitude'];
         $this->longitude = $venueData['longitude'];
         $this->address = $venueData['address'];
+        $this->addressLine1 = $venueData['simpleAddress1'];
+        $this->addressLine2 = $venueData['simpleAddress2'];
+        $this->city = $venueData['city'];
+        $this->county = $venueData['state'];
+        $this->postalCode = $venueData['zip'];
+        $this->countryCode = $venueData['country'];
+        $this->timeZoneId = $venueData['timeZoneId'];
         $this->description = $venueData['description'];
         $this->imageUrls = $venueData['imageUrls'];
         $this->url = $venueData['url'];
         $this->averageRating = $venueData['averageRating'];
         $this->ratingCount = $venueData['ratingCount'];
-        $this->hasHealthAndSafetyPolicy = $venueData['hasHealthAndSafetyPolicy'];
+        $this->healthAndSafetyPolicy = $venueData['healthAndSafetyPolicy'];
         $this->hasLiquidSpacePro = $venueData['hasLiquidspacePro'];
         $this->mapImageUrl = $venueData['venueMapImageUrl'];
 
         $workspaces = [];
-        foreach ($venueData['workspaces'] as $workspaceData) {
+        foreach ($venueData['hourlyWorkspaces'] as $workspaceData) {
             $workspaces[] = new Workspace($workspaceData);
         }
         $this->workspaces = $workspaces;
