@@ -27,6 +27,7 @@ class WorkspaceAvailabilityResponse
      * be applied to. The DateTimeImmutable object should be given in the local timezone of the venue.
      *
      * @param \DateTimeImmutable $dateTime Should be given in the local timezone of the venue
+     *
      * @return WorkspaceLocalAvailabilityPeriod[]
      */
     public function getPeriodsForDate(\DateTimeImmutable $dateTime): array

@@ -280,6 +280,7 @@ final class LiquidSpaceClientTest extends TestCase
             'issued_token_type' => 'urn:ietf:params:oauth:token-type:access_token'
         ]);
 
+        // @phpstan-ignore-next-line
         $goodTeamResponse = new JsonMockResponse([
             'id' => '0af32b78-09ca-4d08-b7a1-f5ba83614375',
             'headquarters' => [],

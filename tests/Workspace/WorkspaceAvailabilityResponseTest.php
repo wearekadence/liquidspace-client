@@ -15,7 +15,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class WorkspaceAvailabilityResponseTest extends TestCase
 {
-    public function testGetPeriodsForDate()
+    public function testGetPeriodsForDate(): void
     {
         $expectedResponseData = [
             [
@@ -422,8 +422,9 @@ class WorkspaceAvailabilityResponseTest extends TestCase
         $actualResponse = $client->request($request, WorkspaceAvailabilityResponse::class);
 
         $date = new \DateTimeImmutable('2023-06-21T00:00:00', new \DateTimeZone('America/New_York'));
-        $localPeriods = $actualResponse->getPeriodsForDate($date);
+        $localPeriods = $actualResponse?->getPeriodsForDate($date);
 
+        self::assertNotNull($localPeriods);
         self::assertEquals(new WorkspaceLocalAvailabilityPeriod([
             'state' => 0,
             'datetime' => new \DateTimeImmutable(

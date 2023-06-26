@@ -43,7 +43,7 @@ class Venue
         $this->county = $venueData['state'];
         $this->postalCode = $venueData['zip'];
         // Convert UK to official ISO 3166-1 alpha-2 code
-        $this->countryCode = match($venueData['country']) {
+        $this->countryCode = match ($venueData['country']) {
             'UK' => 'GB',
             default => $venueData['country'],
         };

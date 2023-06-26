@@ -114,16 +114,13 @@ class Client
             try {
                 $impersonation = $this->tryImpersonation($accountId, $memberEmail);
             } catch (UnauthorizedException $exception) {
-                $lastUnauthorizedException =  $exception;
+                $lastUnauthorizedException = $exception;
                 ++$this->impersonationRetryCount;
             }
         }
 
         if (null === $impersonation) {
-            throw new UnableToImpersonateException(
-                'Unable to impersonate: '.$memberEmail,
-                previous: $lastUnauthorizedException
-            );
+            throw new UnableToImpersonateException('Unable to impersonate: '.$memberEmail, previous: $lastUnauthorizedException);
         }
 
         return $impersonation;
@@ -223,10 +220,7 @@ class Client
             try {
                 $clientCredentialsData = $clientCredentialsResponse->toArray();
             } catch (\Exception $exception) {
-                throw new EnterpriseTokenFetchFailedException(
-                    'Unable to get enterprise token for client: '.$this->clientId,
-                    previous: $exception
-                );
+                throw new EnterpriseTokenFetchFailedException('Unable to get enterprise token for client: '.$this->clientId, previous: $exception);
             }
 
             return $clientCredentialsData['access_token'];
@@ -262,21 +256,12 @@ class Client
                         $this->cache->delete('liquidspace|enterprise|token|'.$this->clientId);
                         throw new UnauthorizedException($exception->getMessage(), previous: $exception);
                     } elseif (Response::HTTP_NOT_FOUND === $exception->getCode()) {
-                        throw new MemberNotFoundException(
-                            'Member not found for: '.$memberEmail,
-                            previous: $exception
-                        );
+                        throw new MemberNotFoundException('Member not found for: '.$memberEmail, previous: $exception);
                     } else {
-                        throw new MemberFetchFailedException(
-                            'Failed to fetch member: '.$memberEmail,
-                            previous: $exception
-                        );
+                        throw new MemberFetchFailedException('Failed to fetch member: '.$memberEmail, previous: $exception);
                     }
                 } catch (\Exception $exception) {
-                    throw new MemberFetchFailedException(
-                        'Failed to fetch member: '.$memberEmail,
-                        previous: $exception
-                    );
+                    throw new MemberFetchFailedException('Failed to fetch member: '.$memberEmail, previous: $exception);
                 }
 
                 return $memberData['id'];
@@ -315,21 +300,12 @@ class Client
                         $this->cache->delete('liquidspace|enterprise|token|'.$this->clientId);
                         throw new UnauthorizedException($exception->getMessage(), previous: $exception);
                     } elseif (Response::HTTP_NOT_FOUND === $exception->getCode()) {
-                        throw new MemberNotFoundException(
-                            'Member not found for: '.$memberEmail,
-                            previous: $exception
-                        );
+                        throw new MemberNotFoundException('Member not found for: '.$memberEmail, previous: $exception);
                     } else {
-                        throw new MemberFetchFailedException(
-                            'Failed to fetch member: '.$memberEmail,
-                            previous: $exception
-                        );
+                        throw new MemberFetchFailedException('Failed to fetch member: '.$memberEmail, previous: $exception);
                     }
                 } catch (\Exception $exception) {
-                    throw new MemberFetchFailedException(
-                        'Failed to fetch member: '.$memberEmail,
-                        previous: $exception
-                    );
+                    throw new MemberFetchFailedException('Failed to fetch member: '.$memberEmail, previous: $exception);
                 }
 
                 return $memberData['teamId'];
@@ -371,16 +347,10 @@ class Client
                         $this->cache->delete('liquidspace|enterprise|token|'.$this->clientId);
                         throw new UnauthorizedException($exception->getMessage(), previous: $exception);
                     } else {
-                        throw new MemberTokenFetchFailedException(
-                            'Failed to fetch token for member id: '.$memberId,
-                            previous: $exception
-                        );
+                        throw new MemberTokenFetchFailedException('Failed to fetch token for member id: '.$memberId, previous: $exception);
                     }
                 } catch (\Exception $exception) {
-                    throw new MemberTokenFetchFailedException(
-                        'Failed to fetch token for member id: '.$memberId,
-                        previous: $exception
-                    );
+                    throw new MemberTokenFetchFailedException('Failed to fetch token for member id: '.$memberId, previous: $exception);
                 }
 
                 return $memberTokenData['access_token'];
@@ -421,16 +391,10 @@ class Client
                     } elseif (Response::HTTP_NOT_FOUND === $exception->getCode()) {
                         throw new TeamNotFoundException('Team not found for: '.$teamId, previous: $exception);
                     } else {
-                        throw new TeamFetchFailedException(
-                            'Failed to fetch team: '. $teamId,
-                            previous: $exception
-                        );
+                        throw new TeamFetchFailedException('Failed to fetch team: '.$teamId, previous: $exception);
                     }
                 } catch (\Exception $exception) {
-                    throw new TeamFetchFailedException(
-                        'Failed to fetch team: '. $teamId,
-                        previous: $exception
-                    );
+                    throw new TeamFetchFailedException('Failed to fetch team: '.$teamId, previous: $exception);
                 }
 
                 $paymentMethods = $teamData['paymentMethodList']['paymentMethods'];
