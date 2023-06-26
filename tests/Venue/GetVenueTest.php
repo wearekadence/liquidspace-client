@@ -23,6 +23,19 @@ class GetVenueTest extends TestCase
             'longitude' => -0.11602,
             'name' => 'London venue from bila',
             'address' => '1 Addington Street, Lambeth, London SE1 7RY',
+            'simpleAddress1' => '105A Euston Street',
+            'simpleAddress2' => null,
+            'city' => 'London',
+            'state' => 'GB-NYK',
+            'zip' => 'NW1 2EW',
+            'country' => 'UK',
+            'timeZone' => [
+                'windowsId' => 'GMT Standard Time',
+                'territory' => '001',
+                'tzdbIds' => [
+                    'Europe/London',
+                ],
+            ],
             'description' => 'A great building',
             'imageUrls' => [
                'https://dev.liquidspaceapp.com/streetview?location=51.5013,-0.11602&size=450x300',
@@ -30,9 +43,9 @@ class GetVenueTest extends TestCase
             'url' => '/uk/london/lambeth/london-venue-from-bila',
             'averageRating' => 1.5,
             'ratingCount' => 3,
-            'hasHealthAndSafetyPolicy' => false,
+            'healthAndSafetyPolicy' => null,
             'hasLiquidspacePro' => false,
-            'workspaces' => [
+            'hourlyWorkspaces' => [
                 [
                     'id' => '3855d73e-230c-4129-9f62-607575ae94a4',
                     'name' => 'Park Plaza County Hall 2',
@@ -53,6 +66,8 @@ class GetVenueTest extends TestCase
                 ],
             ],
             'venueMapImageUrl' => 'https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/-0.11602,51.5013,15,0.00,0.00/288x216@2x?access_token=pk.eyJ1IjoibGlxdWlkc3BhY2UiLCJhIjoiY2psODdsZm0yMGNyazNxbWt6Njc1OGR3eiJ9._OSdF9FwNYZ85hDNK96D7Q',
+            'defaultBookingMethod' => 3,
+            'defaultBookingMethodHourly' => 2
         ];
 
         // @phpstan-ignore-next-line
@@ -81,7 +96,7 @@ class GetVenueTest extends TestCase
         self::assertEquals('/uk/london/lambeth/london-venue-from-bila', $actualResponse->venue->url);
         self::assertEquals(1.5, $actualResponse->venue->averageRating);
         self::assertEquals(3, $actualResponse->venue->ratingCount);
-        self::assertFalse($actualResponse->venue->hasHealthAndSafetyPolicy);
+        self::assertNull($actualResponse->venue->healthAndSafetyPolicy);
         self::assertFalse($actualResponse->venue->hasLiquidSpacePro);
         self::assertEquals('https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/-0.11602,51.5013,15,0.00,0.00/288x216@2x?access_token=pk.eyJ1IjoibGlxdWlkc3BhY2UiLCJhIjoiY2psODdsZm0yMGNyazNxbWt6Njc1OGR3eiJ9._OSdF9FwNYZ85hDNK96D7Q', $actualResponse->venue->mapImageUrl);
         self::assertCount(2, $actualResponse->venue->workspaces);

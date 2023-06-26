@@ -12,7 +12,7 @@ class Venue
     public readonly float $longitude;
     public readonly string $address;
     public readonly string $addressLine1;
-    public readonly string $addressLine2;
+    public readonly ?string $addressLine2;
     public readonly string $city;
     public readonly ?string $county;
     public readonly ?string $postalCode;
@@ -42,8 +42,12 @@ class Venue
         $this->city = $venueData['city'];
         $this->county = $venueData['state'];
         $this->postalCode = $venueData['zip'];
-        $this->countryCode = $venueData['country'];
-        $this->timeZoneId = $venueData['timeZoneId'];
+        // Convert UK to official ISO 3166-1 alpha-2 code
+        $this->countryCode = match($venueData['country']) {
+            'UK' => 'GB',
+            default => $venueData['country'],
+        };
+        $this->timeZoneId = $venueData['timeZone']['tzdbIds'][0] ?? 'UTC';
         $this->description = $venueData['description'];
         $this->imageUrls = $venueData['imageUrls'];
         $this->url = $venueData['url'];

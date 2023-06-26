@@ -4,8 +4,8 @@ namespace LiquidSpace\Tests\Client;
 
 use LiquidSpace\Client;
 use LiquidSpace\Entity\Impersonation;
-use LiquidSpace\Exception\MemberNotFound;
-use LiquidSpace\Exception\UnableToImpersonate;
+use LiquidSpace\Exception\MemberNotFoundException;
+use LiquidSpace\Exception\UnableToImpersonateException;
 use LiquidSpace\Exception\UnauthorizedException;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -125,7 +125,7 @@ final class LiquidSpaceClientTest extends TestCase
             'with empty cache, member not found' => [
                 'client' => new MockHttpClient([$notFoundResponse]),
                 'cache' => new ArrayAdapter(),
-                'expectedExceptionClass' => MemberNotFound::class,
+                'expectedExceptionClass' => MemberNotFoundException::class,
                 'expectedId' => null,
             ],
             'with empty cache, expired enterprise token' => [
@@ -251,6 +251,8 @@ final class LiquidSpaceClientTest extends TestCase
         $cache = new ArrayAdapter();
         $cache->get('liquidspace|enterprise|token|clientId', fn () => 'cachedEnterpriseToken');
         $cache->get('liquidspace|member|id|am9obi5zbWl0aEBleGFtcGxlLmNvbQ==', fn () => '624d234f-b429-40e2-a964-c021baf6594f');
+        $cache->get('liquidspace|team|id|am9obi5zbWl0aEBleGFtcGxlLmNvbQ==', fn () => '0af32b78-09ca-4d08-b7a1-f5ba83614375');
+        $cache->get('liquidspace|team|prepay|0af32b78-09ca-4d08-b7a1-f5ba83614375', fn () => true);
         $cache->get('liquidspace|member|token|624d234f-b429-40e2-a964-c021baf6594f', fn () => 'cachedMemberToken');
 
         // @phpstan-ignore-next-line
@@ -264,7 +266,8 @@ final class LiquidSpaceClientTest extends TestCase
         $goodMemberIdResponse = new JsonMockResponse([
             'id' => '2bb4c700-fe89-42d3-9a4b-1f6d8586d6b7',
             'fullName' => 'John Smith',
-            'email' => 'john.smith@example.com'
+            'email' => 'john.smith@example.com',
+            'teamId' => '0af32b78-09ca-4d08-b7a1-f5ba83614375'
             // ...
         ]);
 
@@ -275,6 +278,80 @@ final class LiquidSpaceClientTest extends TestCase
             'token_type' => 'Bearer',
             'scope' => 'lsapi.marketplace',
             'issued_token_type' => 'urn:ietf:params:oauth:token-type:access_token'
+        ]);
+
+        $goodTeamResponse = new JsonMockResponse([
+            'id' => '0af32b78-09ca-4d08-b7a1-f5ba83614375',
+            'headquarters' => [],
+            'paymentMethodList' => [
+                'paymentMethods' => [
+                    [
+                        'paymentProfileId' => 'ce08e5fc',
+                        'customerProfileId' => '0af32b78-09ca-4d08-b7a1-f5ba83614375',
+                        'paymentProvider' => 1,
+                        'creditCardType' => 0,
+                        'name' => 'Visa',
+                        'maskedNumber' => '*1111',
+                        'expirationMonth' => 7,
+                        'expirationYear' => 2024,
+                        'isExpired' => false,
+                        'isDefault' => true,
+                        'description' => 'BT Dev Test CC',
+                        'isVerified' => false,
+                        'enabled' => true
+                    ]
+                ],
+                'canDeleteBankAccount' => true,
+                'enableACHPayments' => true,
+                'ccEntryDisabled' => false
+            ],
+            'enterpriseAccountId' => '8e38ca77-fac0-4896-b9b6-ff7dd5dc71f6',
+            'ownerEmail' => 'eric@liquidspace.com',
+            'name' => 'Kadence (Demo) team',
+            'notificationEmails' => [],
+            'isActive' => true,
+            'adminEmails' => [
+                'jordan@kadence.co',
+                'jamie@kadence.co',
+                'caitlyn@kadence.co',
+                'michael.bole@kadence.co'
+            ],
+            'maxDailyBudget' => null,
+            'maxMonthlyBudget' => null,
+            'maxMonthlyMemberBudget' => null,
+            'disableCCEntry' => false,
+            'searchSettings' => [
+                'PreferredVenue' => false,
+                'PreferredVenueImmutableOnSRP' => false,
+                'Extended' => false
+            ],
+            'extendedSearchOptions' => [
+                'reservationMethod' => null,
+                'spaceTypes' => 0,
+                'minPrice' => null,
+                'maxPrice' => null,
+                'liquidSpacePro' => false,
+                'immutableOptions' => [],
+                'hourlySpaceTypesWithoutTrainingArray' => [
+                    1,
+                    2,
+                    4,
+                    64
+                ],
+                'monthlySpaceTypesWithoutDesksArray' => [
+                    4,
+                    16,
+                    32
+                ]
+            ],
+            'bannerOptions' => [
+                'title' => null,
+                'subtitle' => null,
+                'popupTitle' => null,
+                'popupContent' => null,
+                'enable' => false,
+                'forcePopup' => false
+            ]
         ]);
 
         $expiredResponse = new JsonMockResponse([], [
@@ -296,7 +373,9 @@ final class LiquidSpaceClientTest extends TestCase
                 'client' => new MockHttpClient([
                     $goodEnterpriseTokenResponse,
                     $goodMemberIdResponse,
-                    $goodMemberTokenResponse
+                    $goodMemberIdResponse,
+                    $goodTeamResponse,
+                    $goodMemberTokenResponse,
                 ]),
                 'cache' => new ArrayAdapter(),
                 'expectedImpersonation' => new Impersonation(
@@ -312,7 +391,9 @@ final class LiquidSpaceClientTest extends TestCase
                     $expiredResponse,
                     $goodEnterpriseTokenResponse,
                     $goodMemberIdResponse,
-                    $goodMemberTokenResponse
+                    $goodMemberIdResponse,
+                    $goodTeamResponse,
+                    $goodMemberTokenResponse,
                 ]),
                 'cache' => new ArrayAdapter(),
                 'expectedImpersonation' => new Impersonation(
@@ -324,8 +405,6 @@ final class LiquidSpaceClientTest extends TestCase
             ],
             'with empty cache, multiple failed retries' => [
                 'client' => new MockHttpClient([
-                    $goodEnterpriseTokenResponse,
-                    $expiredResponse,
                     $goodEnterpriseTokenResponse,
                     $expiredResponse,
                     $goodEnterpriseTokenResponse,
@@ -346,7 +425,7 @@ final class LiquidSpaceClientTest extends TestCase
         ?Impersonation $expectedImpersonation
     ): void {
         if (null === $expectedImpersonation) {
-            self::expectException(UnableToImpersonate::class);
+            self::expectException(UnableToImpersonateException::class);
         }
 
         $actualImpersonation = $this->createClient($client, $cache)->impersonate(
