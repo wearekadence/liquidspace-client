@@ -4,7 +4,7 @@ namespace LiquidSpace\Entity\Venue;
 
 enum ReservationMethod: int
 {
-    case SpecificTimePeriod = 0;
-    case DayPass = 1;
-    case Period = 2;
+    case Hourly = 0;
+    case Daily = 1;
+    case Monthly = 2;
 }
