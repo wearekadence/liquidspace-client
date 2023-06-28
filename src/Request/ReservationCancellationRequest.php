@@ -7,9 +7,9 @@ use LiquidSpace\Response\ReservationCancellationResponse;
 class ReservationCancellationRequest implements RequestInterface
 {
     /**
-     * @param string $reservationId Reservation GUID to cancel
+     * @param string                  $reservationId  Reservation GUID to cancel
      * @param \DateTimeImmutable|null $occurrenceDate Optional reservation occurrence date used to identify instance of recurring reservation
-     * @param \DateTimeImmutable|null $fromDate Optional date to cancel all occurrences from
+     * @param \DateTimeImmutable|null $fromDate       Optional date to cancel all occurrences from
      */
     public function __construct(
         private readonly string $reservationId,

@@ -7,7 +7,7 @@ use LiquidSpace\Response\ReservationCheckInResponse;
 class ReservationCheckInRequest implements RequestInterface
 {
     /**
-     * @param string $reservationId Reservation GUID to check into
+     * @param string                  $reservationId  Reservation GUID to check into
      * @param \DateTimeImmutable|null $occurrenceDate Optional reservation occurrence date used to identify instance of recurring reservation
      */
     public function __construct(

@@ -2,13 +2,12 @@
 
 namespace LiquidSpace\Request;
 
-use DateTimeInterface;
 use LiquidSpace\Response\ReservationCheckOutResponse;
 
 class ReservationCheckOutRequest implements RequestInterface
 {
     /**
-     * @param string $reservationId Reservation GUID to check out of
+     * @param string                  $reservationId  Reservation GUID to check out of
      * @param \DateTimeImmutable|null $occurrenceDate Optional reservation occurrence date used to identify instance of recurring reservation
      */
     public function __construct(
@@ -40,7 +39,7 @@ class ReservationCheckOutRequest implements RequestInterface
         $optionalOptions = [];
 
         if ($this->occurrenceDate) {
-            $optionalOptions['occurrenceDate'] = $this->occurrenceDate->format(DateTimeInterface::RFC3339);
+            $optionalOptions['occurrenceDate'] = $this->occurrenceDate->format(\DateTimeInterface::RFC3339);
         }
 
         return $optionalOptions;
