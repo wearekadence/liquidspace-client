@@ -29,6 +29,8 @@ class VenueSearchResult
     public readonly bool $isExtendedNetwork;
     /** @var WorkspaceSearchResult[] */
     public readonly array $workspaces;
+    public readonly int $defaultBookingMethod;
+    public readonly int $defaultBookingMethodHourly;
 
     public function __construct(array $venueData)
     {
@@ -56,5 +58,7 @@ class VenueSearchResult
             $workspaces[] = new WorkspaceSearchResult($workspaceData);
         }
         $this->workspaces = $workspaces;
+        $this->defaultBookingMethod = $venueData['defaultBookingMethod'];
+        $this->defaultBookingMethodHourly = $venueData['defaultBookingMethodHourly'];
     }
 }

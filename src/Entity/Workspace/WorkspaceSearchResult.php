@@ -21,12 +21,12 @@ class WorkspaceSearchResult
         $this->id = $workspaceData['id'];
         $this->name = $workspaceData['name'];
         $this->spaceTypes = SpaceType::decode($workspaceData['spaceType']);
+        $this->spaceTypeFormatted = $workspaceData['spaceTypeFormatted'];
         $this->imageUrl = $workspaceData['imgUrl'];
         $this->url = $workspaceData['url'];
         $this->price = $workspaceData['price'];
         $this->priceAmount = $workspaceData['priceAmount'];
         $this->priceDescription = $workspaceData['priceDescription'];
-        $this->spaceTypeFormatted = $workspaceData['spaceTypeFormatted'];
         $this->capacity = $workspaceData['capacity'];
     }
 }

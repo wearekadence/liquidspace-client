@@ -3,31 +3,32 @@
 namespace LiquidSpace\Request;
 
 use LiquidSpace\Entity\Venue\ReservationMethod;
-use LiquidSpace\Entity\Venue\SearchSourceType;
 use LiquidSpace\Entity\Workspace\SpaceType;
 use LiquidSpace\Response\SearchResponse;
 
 class SearchRequest implements RequestInterface
 {
+    private readonly ?int $reservationLengthMinutes;
+
     /**
      * @param SpaceType[] $spaceTypes
      */
     public function __construct(
-        private readonly ?string $savedSearchId = null,
         private readonly ?string $address = null,
+        private readonly ?\DateTimeImmutable $startTime = null,
+        \DateTimeImmutable $endTime = null,
+        int $reservationLengthMinutes = null,
         private readonly ?array $spaceTypes = null,
+        private readonly ?int $minCapacity = null,
+        private readonly ?array $amenityIds = null,
         private readonly ?float $minPrice = null,
         private readonly ?float $maxPrice = null,
-        private readonly ?string $venueId = null,
-        private readonly ?string $venueGroupId = null,
-        private readonly bool $isCurrentLocationSearch = false,
-        private readonly ?SearchSourceType $sourceType = null,
-        private readonly ?\DateTimeImmutable $startTime = null,
         private readonly ?ReservationMethod $reservationMethod = null,
-        private readonly ?int $workspaceCapacity = null,
-        private readonly bool $isFullTextSearch = false,
-        private readonly ?int $reservationLengthMinutes = null,
     ) {
+        if (null === $reservationLengthMinutes && null !== $startTime && null !== $endTime) {
+            $reservationLengthMinutes = (int) ceil(($endTime->getTimestamp() - $startTime->getTimestamp()) / 60);
+        }
+        $this->reservationLengthMinutes = $reservationLengthMinutes;
     }
 
     public static function getResponseClass(): string
@@ -49,10 +50,6 @@ class SearchRequest implements RequestInterface
     {
         $providedOptions = [];
 
-        if (null !== $this->savedSearchId) {
-            $providedOptions['savedSearchId'] = $this->savedSearchId;
-        }
-
         if (null !== $this->address) {
             $providedOptions['address'] = $this->address;
         }
@@ -69,37 +66,23 @@ class SearchRequest implements RequestInterface
             $providedOptions['maxPrice'] = $this->maxPrice;
         }
 
-        if (null !== $this->venueId) {
-            $providedOptions['venueId'] = $this->venueId;
-        }
-
-        if (null !== $this->venueGroupId) {
-            $providedOptions['venueGroupId'] = $this->venueGroupId;
-        }
-
-        $providedOptions['isCurrentLocationSearch'] = $this->isCurrentLocationSearch;
-
-        if (null !== $this->sourceType) {
-            $providedOptions['sourceType'] = $this->sourceType->value;
-        }
-
         if (null !== $this->startTime) {
-            $providedOptions['startTime'] = $this->startTime->format('c');
+            $providedOptions['startTime'] = $this->startTime->format(\DateTimeInterface::RFC3339);
         }
 
         if (null !== $this->reservationMethod) {
             $providedOptions['reservationMethod'] = $this->reservationMethod->value;
         }
 
-        if (null !== $this->workspaceCapacity) {
-            $providedOptions['workspaceCapacity'] = $this->workspaceCapacity;
+        if (null !== $this->minCapacity) {
+            $providedOptions['minCapacity'] = $this->minCapacity;
         }
 
         if (null !== $this->reservationLengthMinutes) {
             $providedOptions['reservationLengthMinutes'] = $this->reservationLengthMinutes;
         }
 
-        $providedOptions['isFullTextSearch'] = $this->isFullTextSearch;
+        $providedOptions['amenityIds'] = $this->amenityIds;
 
         return [
             'json' => $providedOptions,
