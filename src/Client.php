@@ -214,6 +214,8 @@ class Client
                 'body' => [
                     'grant_type' => 'client_credentials',
                     'scope' => 'lsapi.full',
+                    'client_id' => $this->clientId,
+                    'client_secret' => $this->clientSecret,
                 ],
             ]);
 
@@ -337,6 +339,8 @@ class Client
                         'subject_token' => $enterpriseToken,
                         'subject_token_type' => 'urn:ietf:params:oauth:token-type:access_token',
                         'scope' => 'lsapi.marketplace',
+                        'client_id' => $this->clientId,
+                        'client_secret' => $this->clientSecret,
                     ],
                 ]);
 
