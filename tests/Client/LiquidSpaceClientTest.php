@@ -37,13 +37,6 @@ final class LiquidSpaceClientTest extends TestCase
         $this->createClient($mockHttpClient);
     }
 
-    public function testConstructEnterpriseAuthorizationHeader(): void
-    {
-        $header = $this->createClient()->getEnterpriseAuthorization();
-
-        self::assertEquals('Y2xpZW50SWQ6Y2xpZW50U2VjcmV0', $header);
-    }
-
     public static function getEnterpriseTokenDataProvider(): array
     {
         $cache = new ArrayAdapter();

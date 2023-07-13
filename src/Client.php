@@ -151,11 +151,6 @@ class Client
         return $this->getMemberId($accountId, $email, $enterpriseToken);
     }
 
-    public function getEnterpriseAuthorization(): string
-    {
-        return \base64_encode($this->clientId.':'.$this->clientSecret);
-    }
-
     /**
      * @throws EnterpriseTokenFetchFailedException
      * @throws MemberFetchFailedException
@@ -209,7 +204,6 @@ class Client
             $clientCredentialsResponse = $this->httpClient->request(HttpMethod::Post->value, '/identity/connect/token', [
                 'headers' => [
                     'Content-Type' => 'application/x-www-form-urlencoded',
-                    'Authorization' => 'Basic '.$this->getEnterpriseAuthorization(),
                 ],
                 'body' => [
                     'grant_type' => 'client_credentials',
@@ -330,7 +324,6 @@ class Client
                 $memberTokenResponse = $this->httpClient->request(HttpMethod::Post->value, '/identity/connect/token', [
                     'headers' => [
                         'Content-Type' => 'application/x-www-form-urlencoded',
-                        'Authorization' => 'Basic '.$this->getEnterpriseAuthorization(),
                     ],
                     'body' => [
                         'exchange_style' => 'impersonation',
