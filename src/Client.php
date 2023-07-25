@@ -104,6 +104,7 @@ class Client
     public function impersonate(
         string $accountId,
         string $memberEmail,
+        string $memberFullName,
     ): Impersonation {
         $this->impersonationRetryCount = 1;
 
@@ -112,7 +113,7 @@ class Client
 
         while (null === $impersonation && $this->impersonationRetryCount <= self::MAX_IMPERSONATION_RETRY_COUNT) {
             try {
-                $impersonation = $this->tryImpersonation($accountId, $memberEmail);
+                $impersonation = $this->tryImpersonation($accountId, $memberEmail, $memberFullName);
             } catch (UnauthorizedException $exception) {
                 $lastUnauthorizedException = $exception;
                 ++$this->impersonationRetryCount;
@@ -163,7 +164,7 @@ class Client
      * @throws MemberTokenFetchFailedException
      * @throws InvalidArgumentException
      */
-    public function tryImpersonation(string $accountId, string $memberEmail): Impersonation
+    public function tryImpersonation(string $accountId, string $memberEmail, string $memberFullName): Impersonation
     {
         // Step 1: Get Client Credentials Token (Enterprise Token)
         $enterpriseToken = $this->getEnterpriseToken();
@@ -173,7 +174,7 @@ class Client
             $memberId = $this->getMemberId($accountId, $memberEmail, $enterpriseToken);
         } catch (MemberNotFoundException) {
             // Step 2a: If member not found, create member
-            $memberId = $this->createMember($accountId, $memberEmail, $memberEmail);
+            $memberId = $this->createMember($accountId, $memberEmail, $memberFullName);
         }
 
         // Step 4: Lookup team ID from email address

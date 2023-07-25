@@ -424,7 +424,8 @@ final class LiquidSpaceClientTest extends TestCase
 
         $actualImpersonation = $this->createClient($client, $cache)->impersonate(
             '12dd7de1-cacf-4419-ac5d-fe31084f2482',
-            'john.smith@example.com'
+            'john.smith@example.com',
+            'Joh Smith',
         );
 
         self::assertEquals($expectedImpersonation, $actualImpersonation);
