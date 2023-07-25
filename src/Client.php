@@ -425,7 +425,7 @@ class Client
                     'Content-Type' => 'application/json',
                     'Authorization' => 'Bearer '.$enterpriseToken,
                 ],
-                'body' => [
+                'json' => [
                     'email' => $email,
                     'fullName' => $fullName,
                 ],
