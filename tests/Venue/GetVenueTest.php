@@ -54,6 +54,10 @@ class GetVenueTest extends TestCase
                     'spaceTypeFormatted' => 'Meeting Space',
                     'capacity' => 20,
                     'pricesFormatted' => 'GBP £200/hour',
+                    'reservationMethod' => 0,
+                    'imageUrls' => [
+                        'https://dev.liquidspaceapp.com/streetview?location=51.5013,-0.11602&size=450x300',
+                    ]
                 ],
                 [
                     'id' => '7fb56c9d-c69a-4654-9049-a23d1ef27843',
@@ -63,6 +67,10 @@ class GetVenueTest extends TestCase
                     'spaceTypeFormatted' => 'Meeting Space',
                     'capacity' => 1,
                     'pricesFormatted' => 'GBP £300/day-pass',
+                    'reservationMethod' => 0,
+                    'imageUrls' => [
+                        'https://dev.liquidspaceapp.com/streetview?location=51.5013,-0.11602&size=450x300',
+                    ]
                 ],
             ],
             'venueMapImageUrl' => 'https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/-0.11602,51.5013,15,0.00,0.00/288x216@2x?access_token=pk.eyJ1IjoibGlxdWlkc3BhY2UiLCJhIjoiY2psODdsZm0yMGNyazNxbWt6Njc1OGR3eiJ9._OSdF9FwNYZ85hDNK96D7Q',
