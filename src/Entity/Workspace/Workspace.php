@@ -15,6 +15,8 @@ class Workspace
     public readonly int $capacity;
     public readonly string $pricesFormatted;
     public readonly ReservationMethod $reservationMethod;
+    /** @var string[] */
+    public readonly array $imageUrls;
 
     public function __construct(array $workspaceData)
     {
@@ -31,5 +33,6 @@ class Workspace
         $this->spaceTypeFormatted = $workspaceData['spaceTypeFormatted'];
         $this->capacity = $workspaceData['capacity'];
         $this->pricesFormatted = $workspaceData['pricesFormatted'];
+        $this->imageUrls = $workspaceData['imageUrls'];
     }
 }
