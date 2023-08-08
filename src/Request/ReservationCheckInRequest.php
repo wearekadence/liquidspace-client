@@ -39,7 +39,7 @@ class ReservationCheckInRequest implements RequestInterface
         $optionalOptions = [];
 
         if ($this->occurrenceDate) {
-            $optionalOptions['occurrenceDate'] = $this->occurrenceDate->format(\DateTimeInterface::RFC3339);
+            $optionalOptions['query']['occurrenceDate'] = $this->occurrenceDate->format(\DateTimeInterface::RFC3339);
         }
 
         return $optionalOptions;

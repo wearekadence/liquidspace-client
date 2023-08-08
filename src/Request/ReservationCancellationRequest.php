@@ -41,11 +41,11 @@ class ReservationCancellationRequest implements RequestInterface
         $optionalOptions = [];
 
         if ($this->occurrenceDate) {
-            $optionalOptions['occurrenceDate'] = $this->occurrenceDate->format(\DateTimeInterface::RFC3339);
+            $optionalOptions['query']['occurrenceDate'] = $this->occurrenceDate->format(\DateTimeInterface::RFC3339);
         }
 
         if ($this->fromDate) {
-            $optionalOptions['applyDate'] = $this->fromDate->format(\DateTimeInterface::RFC3339);
+            $optionalOptions['query']['applyDate'] = $this->fromDate->format(\DateTimeInterface::RFC3339);
         }
 
         return $optionalOptions;

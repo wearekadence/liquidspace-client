@@ -38,7 +38,9 @@ class WorkspaceAvailabilityRequest implements RequestInterface
     public function getOptions(): array
     {
         return [
-            'timeChunkSize' => $this->granularity->value,
+            'query' => [
+                'timeChunkSize' => $this->granularity->value,
+            ]
         ];
     }
 
