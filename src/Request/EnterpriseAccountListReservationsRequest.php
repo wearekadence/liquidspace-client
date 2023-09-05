@@ -43,11 +43,11 @@ class EnterpriseAccountListReservationsRequest implements RequestInterface
         }
 
         if ($this->fromDate) {
-            $optionalOptions['query']['start'] = $this->fromDate->format(\DateTimeInterface::RFC3339);
+            $optionalOptions['query']['start'] = $this->fromDate->format('Y-m-d\TH:i:s');
         }
 
         if ($this->toDate) {
-            $optionalOptions['query']['end'] = $this->toDate->format(\DateTimeInterface::RFC3339);
+            $optionalOptions['query']['end'] = $this->toDate->format('Y-m-d\TH:i:s');
         }
 
         return $optionalOptions;
