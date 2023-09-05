@@ -28,7 +28,8 @@ class EnterpriseReservation
     public readonly string $idForLink;
     public readonly bool $isOutOfBudget;
 
-    public function __construct(array $reservationData) {
+    public function __construct(array $reservationData)
+    {
         $this->startTime = new \DateTimeImmutable($reservationData['startDate']);
         $this->endTime = new \DateTimeImmutable($reservationData['endDate']);
         $this->memberId = $reservationData['memberId'];
@@ -54,7 +55,6 @@ class EnterpriseReservation
             throw new \InvalidArgumentException('Invalid reservation status: '.$reservationData['status']);
         }
         $this->status = $status;
-
 
         $paymentProvider = PaymentProviderType::tryFrom($reservationData['paymentProvider']);
         if (null === $paymentProvider) {
