@@ -48,8 +48,6 @@ class Member
         $this->title = $memberData['title'];
         if (isset($memberData['phoneNumber'])) {
             $this->phoneNumber = $memberData['phoneNumber'];
-        } else {
-            $this->phoneNumber = null;
         }
         $this->city = $memberData['geoCity'];
         $this->country = $memberData['geoCountry'];
@@ -59,8 +57,6 @@ class Member
         $this->costCenter = $memberData['costCenter'];
         if (isset($memberData['company'])) {
             $this->company = $memberData['company'];
-        } else {
-            $this->company = null;
         }
         $this->teamId = $memberData['teamId'];
         $this->joinedDate = new \DateTimeImmutable($memberData['joinedDate']);
