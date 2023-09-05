@@ -28,14 +28,14 @@ class Member
 
     public function __construct(array $memberData)
     {
-        $accountInvitationStatus = EnterpriseAccountInvitationStatus::tryFrom($memberData['accountInvitationStatus']);
+        $accountInvitationStatus = EnterpriseAccountInvitationStatus::tryFrom($memberData['status']);
         if (null === $accountInvitationStatus) {
-            throw new \InvalidArgumentException('Invalid location type: '.$memberData['accountInvitationStatus']);
+            throw new \InvalidArgumentException('Invalid location type: '.$memberData['status']);
         }
 
-        $groupInvitationStatus = MemberGroupInvitationStatus::tryFrom($memberData['groupInvitationStatus']);
+        $groupInvitationStatus = MemberGroupInvitationStatus::tryFrom($memberData['memberGroupStatus']);
         if (null === $groupInvitationStatus) {
-            throw new \InvalidArgumentException('Invalid location type: '.$memberData['groupInvitationStatus']);
+            throw new \InvalidArgumentException('Invalid location type: '.$memberData['memberGroupStatus']);
         }
 
         $this->id = $memberData['id'];
@@ -47,8 +47,8 @@ class Member
         $this->groupInvitationStatus = $groupInvitationStatus;
         $this->title = $memberData['title'];
         $this->phoneNumber = $memberData['phoneNumber'];
-        $this->city = $memberData['city'];
-        $this->country = $memberData['country'];
+        $this->city = $memberData['geoCity'];
+        $this->country = $memberData['geoCountry'];
         $this->picture = $memberData['picture'];
         $this->team = $memberData['team'];
         $this->externalAccountId = $memberData['externalAccountId'];
