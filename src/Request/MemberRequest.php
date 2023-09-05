@@ -35,6 +35,6 @@ class MemberRequest implements RequestInterface
 
     public function requiresEnterpriseToken(): bool
     {
-        return false;
+        return true;
     }
 }

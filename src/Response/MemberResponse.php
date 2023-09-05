@@ -3,13 +3,16 @@
 namespace LiquidSpace\Response;
 
 use LiquidSpace\Entity\Enterprise\Member;
+use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class MemberResponse
 {
     public readonly Member $member;
 
-    public function __construct(array $memberData)
+    public function __construct(ResponseInterface $response)
     {
-        $this->member = new Member($memberData);
+        $content = $response->toArray();
+
+        $this->member = new Member($content);
     }
 }
