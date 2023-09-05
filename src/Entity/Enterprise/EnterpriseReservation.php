@@ -5,6 +5,7 @@ namespace LiquidSpace\Entity\Enterprise;
 use LiquidSpace\Entity\Reservation\ReservationPrice;
 use LiquidSpace\Entity\Reservation\ReservationStatus;
 use LiquidSpace\Entity\Venue\ReservationMethod;
+use LiquidSpace\Entity\Workspace\SpaceType;
 
 class EnterpriseReservation
 {
@@ -19,12 +20,14 @@ class EnterpriseReservation
     public readonly string $venueId;
     public readonly string $venueName;
     public readonly string $spaceName;
-    public readonly string $spaceType;
+    /** @var SpaceType[] */
+    public readonly array $spaceTypes;
+    public readonly string $workspaceId;
     public readonly ReservationPrice $price;
     public readonly ReservationMethod $reservationMethod;
     public readonly ReservationStatus $status;
     public readonly PaymentProviderType $paymentProvider;
-    public readonly string $reservationId;
+    public readonly string $id;
     public readonly string $idForLink;
     public readonly bool $isOutOfBudget;
 
@@ -41,7 +44,8 @@ class EnterpriseReservation
         $this->venueId = $reservationData['venueId'];
         $this->venueName = $reservationData['venueName'];
         $this->spaceName = $reservationData['spaceName'];
-        $this->spaceType = $reservationData['spaceType'];
+        $this->spaceTypes = SpaceType::decode($reservationData['spaceType']);
+        $this->workspaceId = $reservationData['workspaceId'];
         $this->price = new ReservationPrice($reservationData['cost']);
 
         $method = ReservationMethod::tryFrom($reservationData['reservationType']);
@@ -62,7 +66,7 @@ class EnterpriseReservation
         }
         $this->paymentProvider = $paymentProvider;
 
-        $this->reservationId = $reservationData['reservationId'];
+        $this->id = $reservationData['reservationId'];
         $this->idForLink = $reservationData['idForLink'];
         $this->isOutOfBudget = $reservationData['isOutOfBudget'];
     }
