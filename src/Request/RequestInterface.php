@@ -4,6 +4,9 @@ namespace LiquidSpace\Request;
 
 interface RequestInterface
 {
+    /**
+     * @psalm-return class-string
+     */
     public static function getResponseClass(): string;
 
     public static function getMethod(): HttpMethod;
