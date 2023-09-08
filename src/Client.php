@@ -72,6 +72,10 @@ class Client
             $options['headers']['Authorization'] = 'Bearer '.$enterpriseToken;
         }
 
+        if ($impersonation) {
+            $options['headers']['Authorization'] = 'Bearer '.$impersonation->memberToken;
+        }
+
         $response = $this->httpClient->request(
             $request->getMethod()->value,
             $request->getPath(),
