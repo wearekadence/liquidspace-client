@@ -72,7 +72,7 @@ class Client
             $options['headers']['Authorization'] = 'Bearer '.$enterpriseToken;
         }
 
-        if ($impersonation) {
+        if ($request->canImpersonate() && $impersonation) {
             $options['headers']['Authorization'] = 'Bearer '.$impersonation->memberToken;
         }
 

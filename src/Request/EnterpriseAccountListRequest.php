@@ -30,4 +30,9 @@ class EnterpriseAccountListRequest implements RequestInterface
     {
         return true;
     }
+
+    public function canImpersonate(): bool
+    {
+        return false;
+    }
 }

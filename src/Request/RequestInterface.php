@@ -16,4 +16,6 @@ interface RequestInterface
     public function getOptions(): array;
 
     public function requiresEnterpriseToken(): bool;
+
+    public function canImpersonate(): bool;
 }

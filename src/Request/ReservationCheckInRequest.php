@@ -49,4 +49,9 @@ class ReservationCheckInRequest implements RequestInterface
     {
         return false;
     }
+
+    public function canImpersonate(): bool
+    {
+        return true;
+    }
 }
