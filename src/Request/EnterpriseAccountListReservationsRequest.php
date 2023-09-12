@@ -2,6 +2,7 @@
 
 namespace LiquidSpace\Request;
 
+use LiquidSpace\Entity\Enterprise\ReservationStatusFilter;
 use LiquidSpace\Response\EnterpriseAccountListReservationsResponse;
 
 class EnterpriseAccountListReservationsRequest implements RequestInterface
@@ -12,6 +13,7 @@ class EnterpriseAccountListReservationsRequest implements RequestInterface
         private readonly ?\DateTimeImmutable $toDate = null,
         private readonly ?string $memberId = null,
         private readonly ?string $teamId = null,
+        private readonly ReservationStatusFilter $status = ReservationStatusFilter::All,
     ) {
     }
 
@@ -49,6 +51,8 @@ class EnterpriseAccountListReservationsRequest implements RequestInterface
         if ($this->toDate) {
             $optionalOptions['query']['end'] = $this->toDate->format('Y-m-d\TH:i:s');
         }
+
+        $optionalOptions['query']['reservationsStatuses'] = $this->status->value;
 
         return $optionalOptions;
     }
