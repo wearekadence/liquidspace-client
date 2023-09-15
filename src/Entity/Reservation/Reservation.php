@@ -4,11 +4,12 @@ namespace LiquidSpace\Entity\Reservation;
 
 use LiquidSpace\Entity\Venue\ReservationMethod;
 use LiquidSpace\Entity\Workspace\Amenity;
+use LiquidSpace\Entity\Workspace\SpaceType;
 
 /**
  * The following properties have been ignored for simplicity: costSummary, paymentHistory & hourlyRequestToBook.
  */
-class Reservation
+class Reservation implements ReservationInterface
 {
     public readonly string $id;
     public readonly string $venueName;
@@ -132,5 +133,54 @@ class Reservation
         $this->workspaceUrl = $reservationData['workspaceUrl'];
         $this->spaceTypeForCapacity = $reservationData['spaceTypeForCapacity'];
         $this->isAutoRenew = $reservationData['isAutoRenew'];
+    }
+
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    public function getVenueId(): string
+    {
+        return $this->venueId;
+    }
+
+    public function getWorkspaceId(): string
+    {
+        return $this->workspaceId;
+    }
+
+    public function getStartTime(): \DateTimeImmutable
+    {
+        return $this->startTime;
+    }
+
+    public function getEndTime(): \DateTimeImmutable
+    {
+        return $this->endTime;
+    }
+
+    public function getMethod(): ReservationMethod
+    {
+        return $this->reservationMethod;
+    }
+
+    public function getStatus(): ReservationStatus
+    {
+        return $this->status;
+    }
+
+    public function getWorkspaceName(): string
+    {
+        return $this->workspaceName;
+    }
+
+    /**
+     * @return SpaceType[]
+     */
+    public function getSpaceTypes(): array
+    {
+        // TODO: Get
+        return [];
     }
 }

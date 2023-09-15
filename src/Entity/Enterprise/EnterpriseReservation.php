@@ -2,12 +2,13 @@
 
 namespace LiquidSpace\Entity\Enterprise;
 
+use LiquidSpace\Entity\Reservation\ReservationInterface;
 use LiquidSpace\Entity\Reservation\ReservationPrice;
 use LiquidSpace\Entity\Reservation\ReservationStatus;
 use LiquidSpace\Entity\Venue\ReservationMethod;
 use LiquidSpace\Entity\Workspace\SpaceType;
 
-class EnterpriseReservation
+class EnterpriseReservation implements ReservationInterface
 {
     public readonly \DateTimeImmutable $startTime;
     public readonly \DateTimeImmutable $endTime;
@@ -69,5 +70,53 @@ class EnterpriseReservation
         $this->id = $reservationData['reservationId'];
         $this->idForLink = $reservationData['idForLink'];
         $this->isOutOfBudget = $reservationData['isOutOfBudget'];
+    }
+
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    public function getVenueId(): string
+    {
+        return $this->venueId;
+    }
+
+    public function getWorkspaceId(): string
+    {
+        return $this->workspaceId;
+    }
+
+    public function getStartTime(): \DateTimeImmutable
+    {
+        return $this->startTime;
+    }
+
+    public function getEndTime(): \DateTimeImmutable
+    {
+        return $this->endTime;
+    }
+
+    public function getMethod(): ReservationMethod
+    {
+        return $this->reservationMethod;
+    }
+
+    public function getStatus(): ReservationStatus
+    {
+        return $this->status;
+    }
+
+    public function getWorkspaceName(): string
+    {
+        return $this->spaceName;
+    }
+
+    /**
+     * @return SpaceType[]
+     */
+    public function getSpaceTypes(): array
+    {
+        return $this->spaceTypes;
     }
 }
