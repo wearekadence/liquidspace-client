@@ -11,14 +11,14 @@ class Member
     public readonly ?string $notes;
     public readonly EnterpriseAccountInvitationStatus $accountInvitationStatus;
     public readonly MemberGroupInvitationStatus $groupInvitationStatus;
-    public readonly string $title;
+    public readonly ?string $title;
     public readonly ?string $phoneNumber;
-    public readonly string $city;
-    public readonly string $country;
-    public readonly string $picture;
+    public readonly ?string $city;
+    public readonly ?string $country;
+    public readonly ?string $picture;
     public readonly string $team;
-    public readonly string $externalAccountId;
-    public readonly string $costCenter;
+    public readonly ?string $externalAccountId;
+    public readonly ?string $costCenter;
     public readonly ?string $company;
     public readonly string $teamId;
     public readonly \DateTimeImmutable $joinedDate;
@@ -47,16 +47,28 @@ class Member
         }
         $this->accountInvitationStatus = $accountInvitationStatus;
         $this->groupInvitationStatus = $groupInvitationStatus;
-        $this->title = $memberData['title'];
+        if (isset($memberData['title'])) {
+            $this->title = $memberData['title'];
+        }
         if (isset($memberData['phoneNumber'])) {
             $this->phoneNumber = $memberData['phoneNumber'];
         }
-        $this->city = $memberData['geoCity'];
-        $this->country = $memberData['geoCountry'];
-        $this->picture = $memberData['picture'];
+        if (isset($memberData['geoCity'])) {
+            $this->city = $memberData['geoCity'];
+        }
+        if (isset($memberData['geoCountry'])) {
+            $this->country = $memberData['geoCountry'];
+        }
+        if (isset($memberData['picture'])) {
+            $this->picture = $memberData['picture'];
+        }
         $this->team = $memberData['team'];
-        $this->externalAccountId = $memberData['externalAccountId'];
-        $this->costCenter = $memberData['costCenter'];
+        if (isset($memberData['externalAccountId'])) {
+            $this->externalAccountId = $memberData['externalAccountId'];
+        }
+        if (isset($memberData['costCenter'])) {
+            $this->costCenter = $memberData['costCenter'];
+        }
         if (isset($memberData['company'])) {
             $this->company = $memberData['company'];
         }
