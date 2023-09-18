@@ -180,7 +180,7 @@ class Reservation implements ReservationInterface
      */
     public function getSpaceTypes(): array
     {
-        // TODO: Get
+        // TODO: Ask LiquidSpace to add spaceTypes to the reservation response.
         return [];
     }
 }
