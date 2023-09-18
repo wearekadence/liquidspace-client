@@ -8,7 +8,7 @@ class Member
     public readonly string $fullName;
     public readonly string $email;
     public readonly \DateTimeImmutable $createdDate;
-    public readonly string $notes;
+    public readonly ?string $notes;
     public readonly EnterpriseAccountInvitationStatus $accountInvitationStatus;
     public readonly MemberGroupInvitationStatus $groupInvitationStatus;
     public readonly string $title;
@@ -42,7 +42,9 @@ class Member
         $this->fullName = $memberData['fullName'];
         $this->email = $memberData['email'];
         $this->createdDate = new \DateTimeImmutable($memberData['createdDate']);
-        $this->notes = $memberData['notes'];
+        if (isset($memberData['notes'])) {
+            $this->notes = $memberData['notes'];
+        }
         $this->accountInvitationStatus = $accountInvitationStatus;
         $this->groupInvitationStatus = $groupInvitationStatus;
         $this->title = $memberData['title'];
