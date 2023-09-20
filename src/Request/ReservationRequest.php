@@ -2,7 +2,7 @@
 
 namespace LiquidSpace\Request;
 
-use LiquidSpace\Response\ReservationCancellationResponse;
+use LiquidSpace\Response\ReservationResponse;
 
 class ReservationRequest implements RequestInterface
 {
@@ -16,7 +16,7 @@ class ReservationRequest implements RequestInterface
 
     public static function getResponseClass(): string
     {
-        return ReservationCancellationResponse::class;
+        return ReservationResponse::class;
     }
 
     public static function getMethod(): HttpMethod
