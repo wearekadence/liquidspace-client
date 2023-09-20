@@ -53,6 +53,8 @@ class Reservation implements ReservationInterface
     public readonly string $workspaceUrl;
     public readonly string $spaceTypeForCapacity;
     public readonly bool $isAutoRenew;
+    /** @var SpaceType[] */
+    public readonly array $spaceTypes;
 
     public function __construct(array $reservationData)
     {
@@ -77,6 +79,7 @@ class Reservation implements ReservationInterface
         $this->startTime = new \DateTimeImmutable($reservationData['startTime']);
         $this->endTime = new \DateTimeImmutable($reservationData['endTime']);
         $this->finishDate = $reservationData['finishDate'] ? new \DateTimeImmutable($reservationData['finishDate']) : null;
+        $this->spaceTypes = SpaceType::decode($reservationData['spaceType']);
 
         $status = ReservationStatus::tryFrom($reservationData['status']);
         if (null === $status) {
@@ -180,7 +183,6 @@ class Reservation implements ReservationInterface
      */
     public function getSpaceTypes(): array
     {
-        // TODO: Ask LiquidSpace to add spaceTypes to the reservation response.
-        return [];
+        return $this->spaceTypes;
     }
 }
