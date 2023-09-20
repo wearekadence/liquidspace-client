@@ -20,7 +20,7 @@ class Reservation implements ReservationInterface
     public readonly int $venueRatingCount;
     public readonly string $venueHostFirstName;
     public readonly string $venueHostLastName;
-    public readonly string $venueHostPhone;
+    public readonly ?string $venueHostPhone;
     public readonly ?string $reviewId;
     public readonly ?int $memberStars;
     public readonly ?string $memberReviewText;
@@ -67,7 +67,9 @@ class Reservation implements ReservationInterface
         $this->venueRatingCount = $reservationData['venueRatingCount'];
         $this->venueHostFirstName = $reservationData['venueHostName'];
         $this->venueHostLastName = $reservationData['venueHostLastName'];
-        $this->venueHostPhone = $reservationData['venueHostPhone'];
+        if (isset($reservationData['venueHostPhone'])) {
+            $this->venueHostPhone = $reservationData['venueHostPhone'];
+        }
         $this->reviewId = $reservationData['reviewId'] ?? null;
         $this->memberStars = $reservationData['memberStars'] ?? null;
         $this->memberReviewText = $reservationData['memberReviewText'] ?? null;
