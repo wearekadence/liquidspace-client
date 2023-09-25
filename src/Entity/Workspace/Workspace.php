@@ -7,7 +7,7 @@ use LiquidSpace\Entity\Venue\ReservationMethod;
 class Workspace
 {
     public readonly string $id;
-    public readonly string $name;
+    public readonly ?string $name;
     public readonly string $url;
     /** @var SpaceType[] */
     public readonly array $spaceTypes;
@@ -27,7 +27,13 @@ class Workspace
         $this->reservationMethod = $method;
 
         $this->id = $workspaceData['id'];
-        $this->name = $workspaceData['name'];
+
+        if (isset($workspaceData['name'])) {
+            $this->name = $workspaceData['name'];
+        } else {
+            $this->name = null;
+        }
+
         $this->spaceTypes = SpaceType::decode($workspaceData['spaceType']);
         $this->url = $workspaceData['url'];
         $this->spaceTypeFormatted = $workspaceData['spaceTypeFormatted'];
