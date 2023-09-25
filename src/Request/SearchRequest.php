@@ -78,11 +78,13 @@ class SearchRequest implements RequestInterface
             $providedOptions['minCapacity'] = $this->minCapacity;
         }
 
-        if (null !== $this->reservationLengthMinutes) {
+        if (null !== $this->reservationLengthMinutes && $this->reservationMethod === ReservationMethod::Hourly) {
             $providedOptions['reservationLengthMinutes'] = $this->reservationLengthMinutes;
         }
 
-        $providedOptions['amenityIds'] = $this->amenityIds;
+        if (null !== $this->amenityIds) {
+            $providedOptions['amenityIds'] = $this->amenityIds;
+        }
 
         return [
             'json' => $providedOptions,
