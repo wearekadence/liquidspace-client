@@ -119,4 +119,9 @@ class EnterpriseReservation implements ReservationInterface
     {
         return $this->spaceTypes;
     }
+
+    public function getMemberEmail(): ?string
+    {
+        return $this->memberEmail;
+    }
 }
