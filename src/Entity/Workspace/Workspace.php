@@ -30,8 +30,6 @@ class Workspace
 
         if (isset($workspaceData['name'])) {
             $this->name = $workspaceData['name'];
-        } else {
-            $this->name = null;
         }
 
         $this->spaceTypes = SpaceType::decode($workspaceData['spaceType']);
