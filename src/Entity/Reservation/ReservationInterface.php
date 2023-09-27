@@ -25,5 +25,6 @@ interface ReservationInterface
 
     /** @return SpaceType[] */
     public function getSpaceTypes(): array;
+
     public function getMemberEmail(): ?string;
 }
