@@ -368,7 +368,8 @@ final class LiquidSpaceClientTest extends TestCase
                     $goodEnterpriseTokenResponse,
                     $goodMemberIdResponse,
                     $goodMemberIdResponse,
-                    $goodTeamResponse,
+                    // TODO: Remove while we don't check pre-payment
+                    // $goodTeamResponse,
                     $goodMemberTokenResponse,
                 ]),
                 'cache' => new ArrayAdapter(),
@@ -386,7 +387,8 @@ final class LiquidSpaceClientTest extends TestCase
                     $goodEnterpriseTokenResponse,
                     $goodMemberIdResponse,
                     $goodMemberIdResponse,
-                    $goodTeamResponse,
+                    // TODO: Remove while we don't check pre-payment
+                    // $goodTeamResponse,
                     $goodMemberTokenResponse,
                 ]),
                 'cache' => new ArrayAdapter(),
