@@ -181,17 +181,17 @@ class Client
             $memberId = $this->createMember($accountId, $memberEmail, $memberFullName);
         }
 
-        // Step 4: Lookup team ID from email address
+        // Step 3: Lookup team ID from email address
         $teamId = $this->getTeamId($accountId, $memberEmail, $enterpriseToken);
 
-        // Step 5: Check if member has access to pre-pay via team membership
-        $prePayEnabled = $this->getPrePayEnabled($teamId, $enterpriseToken);
+        // Step 4: Check if member has access to pre-pay via team membership
+        // TODO: Disable step 4 for now until LiquidSpace advise on the new API
+        // $prePayEnabled = $this->getPrePayEnabled($teamId, $enterpriseToken);
+        // if (false === $prePayEnabled) {
+        //     throw new NoPaymentMethodOnAccountException('No payment method available to member: '.$memberId);
+        // }
 
-        if (false === $prePayEnabled) {
-            throw new NoPaymentMethodOnAccountException('No payment method available to member: '.$memberId);
-        }
-
-        // Step 3: Get Access Token (Member Token)
+        // Step 5: Get Access Token (Member Token)
         $memberToken = $this->getMemberToken($memberId, $enterpriseToken);
 
         return new Impersonation($accountId, $memberId, $enterpriseToken, $memberToken);
