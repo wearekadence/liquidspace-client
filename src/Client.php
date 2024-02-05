@@ -185,11 +185,10 @@ class Client
         $teamId = $this->getTeamId($accountId, $memberEmail, $enterpriseToken);
 
         // Step 4: Check if member has access to pre-pay via team membership
-        // TODO: Disable step 4 for now until LiquidSpace advise on the new API
-        // $prePayEnabled = $this->getPrePayEnabled($teamId, $enterpriseToken);
-        // if (false === $prePayEnabled) {
-        //     throw new NoPaymentMethodOnAccountException('No payment method available to member: '.$memberId);
-        // }
+         $prePayEnabled = $this->getPrePayEnabled($teamId, $enterpriseToken);
+         if (false === $prePayEnabled) {
+             throw new NoPaymentMethodOnAccountException('No payment method available to member: '.$memberId);
+         }
 
         // Step 5: Get Access Token (Member Token)
         $memberToken = $this->getMemberToken($memberId, $enterpriseToken);
@@ -402,7 +401,7 @@ class Client
                 $paymentMethods = $teamData['paymentMethodList']['paymentMethods'];
 
                 foreach ($paymentMethods as $paymentMethod) {
-                    if (true === $paymentMethod['enabled'] && false === $paymentMethod['isExpired']) {
+                    if (false === $paymentMethod['isExpired']) {
                         return true;
                     }
                 }

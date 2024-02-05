@@ -291,8 +291,7 @@ final class LiquidSpaceClientTest extends TestCase
                         'isExpired' => false,
                         'isDefault' => true,
                         'description' => 'BT Dev Test CC',
-                        'isVerified' => false,
-                        'enabled' => true
+                        'isVerified' => false
                     ]
                 ],
                 'canDeleteBankAccount' => true,
@@ -368,8 +367,7 @@ final class LiquidSpaceClientTest extends TestCase
                     $goodEnterpriseTokenResponse,
                     $goodMemberIdResponse,
                     $goodMemberIdResponse,
-                    // TODO: Remove while we don't check pre-payment
-                    // $goodTeamResponse,
+                    $goodTeamResponse,
                     $goodMemberTokenResponse,
                 ]),
                 'cache' => new ArrayAdapter(),
@@ -387,8 +385,7 @@ final class LiquidSpaceClientTest extends TestCase
                     $goodEnterpriseTokenResponse,
                     $goodMemberIdResponse,
                     $goodMemberIdResponse,
-                    // TODO: Remove while we don't check pre-payment
-                    // $goodTeamResponse,
+                    $goodTeamResponse,
                     $goodMemberTokenResponse,
                 ]),
                 'cache' => new ArrayAdapter(),
