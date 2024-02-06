@@ -25,7 +25,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class Client
 {
-    private const BASE_URI = 'https://ls-api-dev.azure-api.net';
+    private const BASE_URI = 'https://api.liquidspace.com';
     private const MAX_IMPERSONATION_RETRY_COUNT = 3;
 
     private string $subscriptionKey;
@@ -39,6 +39,7 @@ class Client
         string $subscriptionKey,
         string $clientId,
         string $clientSecret,
+        ?string $baseUri = null,
     ) {
         $this->subscriptionKey = $subscriptionKey;
         $this->clientId = $clientId;
@@ -48,7 +49,7 @@ class Client
                 'LS-Subscription-Key' => $this->subscriptionKey,
             ],
             'http_version' => '2.0',
-            'base_uri' => self::BASE_URI,
+            'base_uri' => $baseUri ?? self::BASE_URI,
         ]);
     }
 
