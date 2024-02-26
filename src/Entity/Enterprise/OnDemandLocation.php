@@ -13,7 +13,7 @@ class OnDemandLocation
     public readonly float $latitude;
     public readonly float $longitude;
     public readonly bool $isGeofenceEnabled;
-    public readonly float $geofenceRadiusMiles;
+    public readonly ?float $geofenceRadiusMiles;
 
     public function __construct(array $onDemandLocationData)
     {
