@@ -8,10 +8,10 @@ class OnDemandLocation
     public readonly string $id;
     public readonly string $description;
     public readonly string $name;
-    public readonly string $city;
-    public readonly string $state;
-    public readonly float $latitude;
-    public readonly float $longitude;
+    public readonly ?string $city;
+    public readonly ?string $state;
+    public readonly ?float $latitude;
+    public readonly ?float $longitude;
     public readonly bool $isGeofenceEnabled;
     public readonly ?float $geofenceRadiusMiles;
 
