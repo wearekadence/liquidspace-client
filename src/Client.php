@@ -401,13 +401,7 @@ class Client
 
                 $paymentMethods = $teamData['paymentMethodList']['paymentMethods'];
 
-                foreach ($paymentMethods as $paymentMethod) {
-                    if (false === $paymentMethod['isExpired']) {
-                        return true;
-                    }
-                }
-
-                return false;
+                return 0 < count($paymentMethods);
             }
         );
     }
