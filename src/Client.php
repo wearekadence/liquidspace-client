@@ -39,7 +39,7 @@ class Client
         string $subscriptionKey,
         string $clientId,
         string $clientSecret,
-        ?string $baseUri = null,
+        string $baseUri = null,
     ) {
         $this->subscriptionKey = $subscriptionKey;
         $this->clientId = $clientId;
