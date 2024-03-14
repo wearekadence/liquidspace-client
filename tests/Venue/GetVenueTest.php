@@ -92,7 +92,7 @@ class GetVenueTest extends TestCase
 
         self::assertNotNull($actualResponse);
         self::assertSame('GET', $mockResponse->getRequestMethod());
-        self::assertSame('https://ls-api-dev.azure-api.net/marketplace/api/venues/04637609-c1d5-4848-b34f-8e1ef83de14f', $mockResponse->getRequestUrl());
+        self::assertSame('https://api.liquidspace.com/marketplace/api/venues/04637609-c1d5-4848-b34f-8e1ef83de14f', $mockResponse->getRequestUrl());
         self::assertEquals('04637609-c1d5-4848-b34f-8e1ef83de14f', $actualResponse->venue->id);
         self::assertEquals(51.5013, $actualResponse->venue->latitude);
         self::assertEquals(-0.11602, $actualResponse->venue->longitude);
@@ -131,7 +131,7 @@ class GetVenueTest extends TestCase
         $actualResponse = $client->request($request, VenueResponse::class);
 
         self::assertSame('GET', $mockResponse->getRequestMethod());
-        self::assertSame('https://ls-api-dev.azure-api.net/marketplace/api/venues/04637609-c1d5-4848-b34f-8e1ef83de14f', $mockResponse->getRequestUrl());
+        self::assertSame('https://api.liquidspace.com/marketplace/api/venues/04637609-c1d5-4848-b34f-8e1ef83de14f', $mockResponse->getRequestUrl());
         self::assertNull($actualResponse);
     }
 

@@ -30,7 +30,7 @@ final class LiquidSpaceClientTest extends TestCase
                     'LS-Subscription-Key' => 'subscriptionKey',
                 ],
                 'http_version' => '2.0',
-                'base_uri' => 'https://ls-api-dev.azure-api.net',
+                'base_uri' => 'https://api.liquidspace.com',
             ])
         ;
 
