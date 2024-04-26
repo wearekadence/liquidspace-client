@@ -8,8 +8,8 @@ class Amenity
     public readonly ?string $description;
     public readonly ?string $instruction;
     public readonly ?string $imageUrl;
-    public readonly bool $paid;
-    public readonly bool $isWorkspace;
+    public readonly ?bool $paid;
+    public readonly ?bool $isWorkspace;
 
     public function __construct(array $amenityData)
     {
