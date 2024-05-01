@@ -14,10 +14,20 @@ class Amenity
     public function __construct(array $amenityData)
     {
         $this->name = $amenityData['name'];
-        $this->description = $amenityData['description'];
-        $this->instruction = $amenityData['instruction'];
-        $this->imageUrl = $amenityData['imageUrl'];
-        $this->paid = $amenityData['paid'];
-        $this->isWorkspace = $amenityData['isWorkspace'];
+        if (isset($amenityData['description'])) {
+            $this->description = $amenityData['description'];
+        }
+        if (isset($amenityData['instruction'])) {
+            $this->instruction = $amenityData['instruction'];
+        }
+        if (isset($amenityData['imageUrl'])) {
+            $this->imageUrl = $amenityData['imageUrl'];
+        }
+        if (isset($amenityData['paid'])) {
+            $this->paid = $amenityData['paid'];
+        }
+        if (isset($amenityData['isWorkspace'])) {
+            $this->isWorkspace = $amenityData['isWorkspace'];
+        }
     }
 }
