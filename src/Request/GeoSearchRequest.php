@@ -82,7 +82,7 @@ class GeoSearchRequest implements RequestInterface
             $providedOptions['minCapacity'] = $this->minCapacity;
         }
 
-        if (null !== $this->reservationLengthMinutes) {
+        if (null !== $this->reservationLengthMinutes && ReservationMethod::Hourly === $this->reservationMethod) {
             $providedOptions['reservationLengthMinutes'] = $this->reservationLengthMinutes;
         }
 
