@@ -71,7 +71,7 @@ class GeoSearchRequest implements RequestInterface
         }
 
         if (null !== $this->startTime) {
-            $providedOptions['startTime'] = $this->startTime->format(\DateTimeInterface::RFC3339);
+            $providedOptions['startTime'] = $this->startTime->format('Y-m-d\TH:i:s');
         }
 
         if (null !== $this->reservationMethod) {
