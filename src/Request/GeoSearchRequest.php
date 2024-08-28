@@ -55,7 +55,7 @@ class GeoSearchRequest implements RequestInterface
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
             'radius' => $this->radius,
-            'startTime' => $this->startTime->format(\DateTimeInterface::RFC3339),
+            'startTime' => $this->startTime->format('Y-m-d\TH:i:s'),
         ];
 
         if (null !== $this->spaceTypes) {
