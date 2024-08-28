@@ -2,7 +2,6 @@
 
 namespace LiquidSpace\Request;
 
-use DateTimeInterface;
 use LiquidSpace\Entity\Venue\ReservationMethod;
 use LiquidSpace\Entity\Workspace\SpaceType;
 use LiquidSpace\Response\SearchResponse;
