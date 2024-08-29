@@ -9,6 +9,7 @@ use LiquidSpace\Response\SearchResponse;
 class GeoSearchRequest implements RequestInterface
 {
     private readonly ?int $reservationLengthMinutes;
+    private const DATETIME_FORMAT = 'Y-m-d\TH:i:s';
 
     /**
      * @param SpaceType[] $spaceTypes
@@ -55,7 +56,7 @@ class GeoSearchRequest implements RequestInterface
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
             'radius' => $this->radius,
-            'startTime' => $this->startTime->format(\DateTimeInterface::RFC3339),
+            'startTime' => $this->startTime->format(self::DATETIME_FORMAT),
         ];
 
         if (null !== $this->spaceTypes) {
@@ -70,10 +71,6 @@ class GeoSearchRequest implements RequestInterface
             $providedOptions['maxPrice'] = $this->maxPrice;
         }
 
-        if (null !== $this->startTime) {
-            $providedOptions['startTime'] = $this->startTime->format(\DateTimeInterface::RFC3339);
-        }
-
         if (null !== $this->reservationMethod) {
             $providedOptions['reservationMethod'] = $this->reservationMethod->value;
         }
@@ -82,7 +79,7 @@ class GeoSearchRequest implements RequestInterface
             $providedOptions['minCapacity'] = $this->minCapacity;
         }
 
-        if (null !== $this->reservationLengthMinutes && ReservationMethod::Hourly === $this->reservationMethod) {
+        if (null !== $this->reservationLengthMinutes) {
             $providedOptions['reservationLengthMinutes'] = $this->reservationLengthMinutes;
         }
 
