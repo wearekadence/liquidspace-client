@@ -19,8 +19,8 @@ class GeoSearchRequest implements RequestInterface
         private readonly float $longitude,
         private readonly float $radius,
         private readonly \DateTimeImmutable $startTime,
-        \DateTimeImmutable $endTime = null,
-        int $reservationLengthMinutes = null,
+        ?\DateTimeImmutable $endTime = null,
+        ?int $reservationLengthMinutes = null,
         private readonly ?array $spaceTypes = null,
         private readonly ?int $minCapacity = null,
         private readonly ?array $amenityIds = null,
@@ -28,7 +28,7 @@ class GeoSearchRequest implements RequestInterface
         private readonly ?float $maxPrice = null,
         private readonly ?ReservationMethod $reservationMethod = null,
     ) {
-        if (null === $reservationLengthMinutes && null !== $startTime && null !== $endTime) {
+        if (null === $reservationLengthMinutes && null !== $endTime) {
             $reservationLengthMinutes = (int) ceil(($endTime->getTimestamp() - $startTime->getTimestamp()) / 60);
         }
         $this->reservationLengthMinutes = $reservationLengthMinutes;

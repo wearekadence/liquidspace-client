@@ -27,7 +27,6 @@ class VenueListAutoCompleteTest extends TestCase
             ],
         ];
 
-        // @phpstan-ignore-next-line
         $mockResponse = new JsonMockResponse($expectedResponseData, [
             'http_code' => 200,
             'response_headers' => ['content-type' => 'application/json; charset=utf-8']

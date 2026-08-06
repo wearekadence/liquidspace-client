@@ -67,9 +67,7 @@ class Reservation implements ReservationInterface
         $this->venueRatingCount = $reservationData['venueRatingCount'];
         $this->venueHostFirstName = $reservationData['venueHostName'];
         $this->venueHostLastName = $reservationData['venueHostLastName'];
-        if (isset($reservationData['venueHostPhone'])) {
-            $this->venueHostPhone = $reservationData['venueHostPhone'];
-        }
+        $this->venueHostPhone = $reservationData['venueHostPhone'] ?? null;
         $this->reviewId = $reservationData['reviewId'] ?? null;
         $this->memberStars = $reservationData['memberStars'] ?? null;
         $this->memberReviewText = $reservationData['memberReviewText'] ?? null;

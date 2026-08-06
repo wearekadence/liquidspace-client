@@ -53,6 +53,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Mark workspace as safe for git
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
       - name: Dependency Cache
         id: dependency-cache
         uses: actions/cache@v3
@@ -79,6 +82,9 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v3
+
+      - name: Mark workspace as safe for git
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
       - name: Restore Dependency Cache
         id: dependency-cache
@@ -109,6 +115,9 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v3
+
+      - name: Mark workspace as safe for git
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
       - name: Restore Dependency Cache
         id: dependency-cache

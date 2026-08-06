@@ -16,8 +16,8 @@ class SearchRequest implements RequestInterface
     public function __construct(
         private readonly ?string $address = null,
         private readonly ?\DateTimeImmutable $startTime = null,
-        \DateTimeImmutable $endTime = null,
-        int $reservationLengthMinutes = null,
+        ?\DateTimeImmutable $endTime = null,
+        ?int $reservationLengthMinutes = null,
         private readonly ?array $spaceTypes = null,
         private readonly ?int $minCapacity = null,
         private readonly ?array $amenityIds = null,

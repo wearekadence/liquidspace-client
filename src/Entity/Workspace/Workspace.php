@@ -27,11 +27,7 @@ class Workspace
         $this->reservationMethod = $method;
 
         $this->id = $workspaceData['id'];
-
-        if (isset($workspaceData['name'])) {
-            $this->name = $workspaceData['name'];
-        }
-
+        $this->name = $workspaceData['name'] ?? null;
         $this->spaceTypes = SpaceType::decode($workspaceData['spaceType']);
         $this->url = $workspaceData['url'];
         $this->spaceTypeFormatted = $workspaceData['spaceTypeFormatted'];

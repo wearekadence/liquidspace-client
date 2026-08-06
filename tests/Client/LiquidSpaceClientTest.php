@@ -42,7 +42,6 @@ final class LiquidSpaceClientTest extends TestCase
         $cache = new ArrayAdapter();
         $cache->get('liquidspace|enterprise|token|clientId', fn () => 'abcd');
 
-        // @phpstan-ignore-next-line
         $mockResponse = new JsonMockResponse([
             'access_token' => 'Y2xpZW50U2VjcmV0',
             'expires_in' => 3600,
@@ -88,7 +87,6 @@ final class LiquidSpaceClientTest extends TestCase
             // ...
         ]);
 
-        // @phpstan-ignore-next-line
         $notFoundResponse = new JsonMockResponse([
             'type' => 'https://tools.ietf.org/html/rfc7231#section-6.5.4',
             'title' => 'Not Found',
@@ -170,7 +168,6 @@ final class LiquidSpaceClientTest extends TestCase
         $cache = new ArrayAdapter();
         $cache->get('liquidspace|member|token|fb92ee34-af5b-4abf-8d02-155231d13fdd', fn () => 'abcd');
 
-        // @phpstan-ignore-next-line
         $foundResponse = new JsonMockResponse([
             'access_token' => 'Y2xpZW50U2VjcmV0',
             'expires_in' => 3600,
@@ -248,7 +245,6 @@ final class LiquidSpaceClientTest extends TestCase
         $cache->get('liquidspace|team|prepay|0af32b78-09ca-4d08-b7a1-f5ba83614375', fn () => true);
         $cache->get('liquidspace|member|token|624d234f-b429-40e2-a964-c021baf6594f', fn () => 'cachedMemberToken');
 
-        // @phpstan-ignore-next-line
         $goodEnterpriseTokenResponse = new JsonMockResponse([
             'access_token' => 'enterpriseToken',
             'expires_in' => 3600,
@@ -264,7 +260,6 @@ final class LiquidSpaceClientTest extends TestCase
             // ...
         ]);
 
-        // @phpstan-ignore-next-line
         $goodMemberTokenResponse = new JsonMockResponse([
             'access_token' => 'memberToken',
             'expires_in' => 3600,
@@ -273,7 +268,6 @@ final class LiquidSpaceClientTest extends TestCase
             'issued_token_type' => 'urn:ietf:params:oauth:token-type:access_token'
         ]);
 
-        // @phpstan-ignore-next-line
         $goodTeamResponse = new JsonMockResponse([
             'id' => '0af32b78-09ca-4d08-b7a1-f5ba83614375',
             'headquarters' => [],

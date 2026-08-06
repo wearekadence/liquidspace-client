@@ -39,7 +39,7 @@ class Client
         string $subscriptionKey,
         string $clientId,
         string $clientSecret,
-        string $baseUri = null,
+        ?string $baseUri = null,
     ) {
         $this->subscriptionKey = $subscriptionKey;
         $this->clientId = $clientId;
@@ -65,7 +65,7 @@ class Client
     public function request(
         RequestInterface $request,
         string $responseClass,
-        Impersonation $impersonation = null
+        ?Impersonation $impersonation = null
     ): ?object {
         $options = $request->getOptions();
         if ($request->requiresEnterpriseToken()) {
@@ -258,9 +258,8 @@ class Client
                         throw new UnauthorizedException($exception->getMessage(), previous: $exception);
                     } elseif (Response::HTTP_NOT_FOUND === $exception->getCode()) {
                         throw new MemberNotFoundException('Member not found for: '.$memberEmail, previous: $exception);
-                    } else {
-                        throw new MemberFetchFailedException('Failed to fetch member: '.$memberEmail, previous: $exception);
                     }
+                    throw new MemberFetchFailedException('Failed to fetch member: '.$memberEmail, previous: $exception);
                 } catch (\Exception $exception) {
                     throw new MemberFetchFailedException('Failed to fetch member: '.$memberEmail, previous: $exception);
                 }
@@ -302,9 +301,8 @@ class Client
                         throw new UnauthorizedException($exception->getMessage(), previous: $exception);
                     } elseif (Response::HTTP_NOT_FOUND === $exception->getCode()) {
                         throw new MemberNotFoundException('Member not found for: '.$memberEmail, previous: $exception);
-                    } else {
-                        throw new MemberFetchFailedException('Failed to fetch member: '.$memberEmail, previous: $exception);
                     }
+                    throw new MemberFetchFailedException('Failed to fetch member: '.$memberEmail, previous: $exception);
                 } catch (\Exception $exception) {
                     throw new MemberFetchFailedException('Failed to fetch member: '.$memberEmail, previous: $exception);
                 }
@@ -348,9 +346,8 @@ class Client
                     if (Response::HTTP_BAD_REQUEST === $exception->getCode()) {
                         $this->cache->delete('liquidspace|enterprise|token|'.$this->clientId);
                         throw new UnauthorizedException($exception->getMessage(), previous: $exception);
-                    } else {
-                        throw new MemberTokenFetchFailedException('Failed to fetch token for member id: '.$memberId, previous: $exception);
                     }
+                    throw new MemberTokenFetchFailedException('Failed to fetch token for member id: '.$memberId, previous: $exception);
                 } catch (\Exception $exception) {
                     throw new MemberTokenFetchFailedException('Failed to fetch token for member id: '.$memberId, previous: $exception);
                 }
@@ -392,9 +389,8 @@ class Client
                         throw new UnauthorizedException($exception->getMessage(), previous: $exception);
                     } elseif (Response::HTTP_NOT_FOUND === $exception->getCode()) {
                         throw new TeamNotFoundException('Team not found for: '.$teamId, previous: $exception);
-                    } else {
-                        throw new TeamFetchFailedException('Failed to fetch team: '.$teamId, previous: $exception);
                     }
+                    throw new TeamFetchFailedException('Failed to fetch team: '.$teamId, previous: $exception);
                 } catch (\Exception $exception) {
                     throw new TeamFetchFailedException('Failed to fetch team: '.$teamId, previous: $exception);
                 }
@@ -437,9 +433,8 @@ class Client
             if (Response::HTTP_BAD_REQUEST === $exception->getCode()) {
                 $this->cache->delete('liquidspace|enterprise|token|'.$this->clientId);
                 throw new UnauthorizedException($exception->getMessage(), previous: $exception);
-            } else {
-                throw new MemberRegistrationFailedException('Member registration failed', previous: $exception);
             }
+            throw new MemberRegistrationFailedException('Member registration failed', previous: $exception);
         } catch (\Exception $exception) {
             throw new MemberRegistrationFailedException('Member registration failed', previous: $exception);
         }

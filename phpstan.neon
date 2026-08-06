@@ -3,7 +3,10 @@ parameters:
     paths:
         - src
         - tests
-    checkGenericClassInNonGenericObjectType: false
-    checkMissingIterableValueType: false
     tipsOfTheDay: false
     treatPhpDocTypesAsCertain: false
+    # PHPStan 2 removed the checkMissingIterableValueType toggle; this restores the
+    # project's prior policy of not requiring value types on plain array shapes.
+    ignoreErrors:
+        -
+            identifier: missingType.iterableValue

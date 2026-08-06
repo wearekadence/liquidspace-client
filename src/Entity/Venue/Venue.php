@@ -102,7 +102,9 @@ class Venue
         $workspaces = [];
         if (isset($venueData['hourlyWorkspaces']) && \is_array($venueData['hourlyWorkspaces'])) {
             foreach ($venueData['hourlyWorkspaces'] as $workspaceData) {
-                $workspaces[] = new Workspace($workspaceData);
+                if (\is_array($workspaceData)) {
+                    $workspaces[] = new Workspace($workspaceData);
+                }
             }
         }
         $this->workspaces = $workspaces;

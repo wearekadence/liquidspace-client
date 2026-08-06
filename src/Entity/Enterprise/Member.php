@@ -42,36 +42,18 @@ class Member
         $this->fullName = $memberData['fullName'];
         $this->email = $memberData['email'];
         $this->createdDate = new \DateTimeImmutable($memberData['createdDate']);
-        if (isset($memberData['notes'])) {
-            $this->notes = $memberData['notes'];
-        }
+        $this->notes = $memberData['notes'] ?? null;
         $this->accountInvitationStatus = $accountInvitationStatus;
         $this->groupInvitationStatus = $groupInvitationStatus;
-        if (isset($memberData['title'])) {
-            $this->title = $memberData['title'];
-        }
-        if (isset($memberData['phoneNumber'])) {
-            $this->phoneNumber = $memberData['phoneNumber'];
-        }
-        if (isset($memberData['geoCity'])) {
-            $this->city = $memberData['geoCity'];
-        }
-        if (isset($memberData['geoCountry'])) {
-            $this->country = $memberData['geoCountry'];
-        }
-        if (isset($memberData['picture'])) {
-            $this->picture = $memberData['picture'];
-        }
+        $this->title = $memberData['title'] ?? null;
+        $this->phoneNumber = $memberData['phoneNumber'] ?? null;
+        $this->city = $memberData['geoCity'] ?? null;
+        $this->country = $memberData['geoCountry'] ?? null;
+        $this->picture = $memberData['picture'] ?? null;
         $this->team = $memberData['team'];
-        if (isset($memberData['externalAccountId'])) {
-            $this->externalAccountId = $memberData['externalAccountId'];
-        }
-        if (isset($memberData['costCenter'])) {
-            $this->costCenter = $memberData['costCenter'];
-        }
-        if (isset($memberData['company'])) {
-            $this->company = $memberData['company'];
-        }
+        $this->externalAccountId = $memberData['externalAccountId'] ?? null;
+        $this->costCenter = $memberData['costCenter'] ?? null;
+        $this->company = $memberData['company'] ?? null;
         $this->teamId = $memberData['teamId'];
         $this->joinedDate = new \DateTimeImmutable($memberData['joinedDate']);
         $this->lastActivityDate = new \DateTimeImmutable($memberData['lastActivityDate']);
