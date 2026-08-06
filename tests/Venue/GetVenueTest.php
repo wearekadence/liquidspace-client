@@ -73,12 +73,11 @@ class GetVenueTest extends TestCase
                     ]
                 ],
             ],
-            'venueMapImageUrl' => 'https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/-0.11602,51.5013,15,0.00,0.00/288x216@2x?access_token=pk.eyJ1IjoibGlxdWlkc3BhY2UiLCJhIjoiY2psODdsZm0yMGNyazNxbWt6Njc1OGR3eiJ9._OSdF9FwNYZ85hDNK96D7Q',
+            'venueMapImageUrl' => 'https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/-0.11602,51.5013,15,0.00,0.00/288x216@2x?access_token=test-access-token',
             'defaultBookingMethod' => 3,
             'defaultBookingMethodHourly' => 2
         ];
 
-        // @phpstan-ignore-next-line
         $mockResponse = new JsonMockResponse($expectedResponseData, [
             'http_code' => 200,
             'response_headers' => ['content-type' => 'application/json; charset=utf-8']
@@ -106,7 +105,7 @@ class GetVenueTest extends TestCase
         self::assertEquals(3, $actualResponse->venue->ratingCount);
         self::assertNull($actualResponse->venue->healthAndSafetyPolicy);
         self::assertFalse($actualResponse->venue->hasLiquidSpacePro);
-        self::assertEquals('https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/-0.11602,51.5013,15,0.00,0.00/288x216@2x?access_token=pk.eyJ1IjoibGlxdWlkc3BhY2UiLCJhIjoiY2psODdsZm0yMGNyazNxbWt6Njc1OGR3eiJ9._OSdF9FwNYZ85hDNK96D7Q', $actualResponse->venue->mapImageUrl);
+        self::assertEquals('https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/-0.11602,51.5013,15,0.00,0.00/288x216@2x?access_token=test-access-token', $actualResponse->venue->mapImageUrl);
         self::assertCount(2, $actualResponse->venue->workspaces);
         self::assertEquals('3855d73e-230c-4129-9f62-607575ae94a4', $actualResponse->venue->workspaces[0]->id);
         self::assertEquals('Park Plaza County Hall 2', $actualResponse->venue->workspaces[0]->name);
